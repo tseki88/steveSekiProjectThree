@@ -1,0 +1,17 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    height: 100vh;
+}
+
+.container {
+    width: 100%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.slider {
+    flex: 1 1 80%;
+}

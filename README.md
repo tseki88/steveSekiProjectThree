@@ -18,7 +18,9 @@ If missed, the score will go down (to a min of 0).
 
 
 ## MVP
-- 1 object moving from top to bottom. press the down arrow key on keyboard (or click / tap on hitrange container), when it falls into a certain range within a "hit" box to register. Score counter to increase when hit.
+- 1 arrow object moving from top to bottom. 
+- When the arrow falls into the acceptable range within a "hit" box, press the associated arrow key on keyboard (or click / tap on hitrange container) to evaluate. 
+- Score counter to increase when hit made.
 
 
 ## Stretch Goal: 
@@ -42,7 +44,7 @@ If missed, the score will go down (to a min of 0).
 1. Find and select the parent container
     - then append Arrow (div with class .arrow) at top of page.
     - Arrow will be position absolute
-    - Arrow will have a top and bottom value set. (aka Y-axis coordinates).
+    - Arrow will have a top value set. (aka Y-axis coordinates).
 
 2. Make function which shifts the Arrow down:
     - decrease the Y-axis coordinate values which loop at a set interval (to be determined).
@@ -50,7 +52,7 @@ If missed, the score will go down (to a min of 0).
 3. Make the following event handlers: 
     - "down arrow" key is pressed on the keyboard
     - mouseclick on hitrange container
-    - screentap of hitrange container
+    - screentap on hitrange container(mobile)
 
 4. All 3 event handlers will:
     - verify if the y-axis of the Arrow is within the "acceptable range (to be determined)" inside the hitrange container.

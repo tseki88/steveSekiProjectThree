@@ -1,0 +1,20 @@
+@import
+  'abstracts/variables',
+  'abstracts/functions',
+  'abstracts/mixins',
+  'abstracts/setup';
+
+@import
+  'base/reset',
+  'base/typography',
+  'base/base',
+  'base/animations';
+
+@import
+  'layout/header',
+  'layout/footer';
+
+@import
+  'components/arrowObject',
+  'components/catchObject',
+  'components/scoreboard';

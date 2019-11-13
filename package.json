@@ -1,0 +1,29 @@
+{
+  "name": "project3",
+  "version": "1.0.0",
+  "description": "## Description Object of Up Down Left Right linked to arrow key on keyboard (add clickable buttons for accessibility for each); Append arrow at Top. The arrows will fall down from top to bottom, each belonging to their own column. falling Arrows will be position absolute, with top bottom starting at a fixed point. the Y axis as is scrolls will add the same value to Y top and bottom to recreate the falling motion. setInterval() On the bottom, there will be an arrowObject to 'catch' the falling arrows. If the user presses the appropriate position absolute arrow on keyboard when the Y position of the falling arrow matches (or close to with some variance) a score will be generated and added to the score board.",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tseki88/steveSekiProjectThree.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tseki88/steveSekiProjectThree/issues"
+  },
+  "homepage": "https://github.com/tseki88/steveSekiProjectThree#readme",
+  "devDependencies": {
+    "@babel/core": "^7.7.2",
+    "@babel/preset-env": "^7.7.1",
+    "browser-sync": "^2.26.7",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-babel": "^8.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-sass": "^4.0.2"
+  }
+}

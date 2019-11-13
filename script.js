@@ -16,15 +16,36 @@
 //  - Parent Container
 //  - Arrow
 //  - "hit" range container
+
 //  - score counter
+let score = 0;
 
 
 // 1. Find and select the parent container
 //     - then append Arrow (div with class .arrow) at top of page.
 //     - Arrow will be position absolute
 //     - Arrow will have a top and bottom value set. (aka Y-axis coordinates).
+// Arrow Font Awesome Reference Object
+const arrowType = {
+    up: {
+        icon: "<i class='far fa-arrow-alt-circle-up'></i>",
+        keyValue: "ArrowUp",
+    },
+    right: {
+        icon: "<i class='far fa-arrow-alt-circle-right'></i>",
+        keyValue: "ArrowRight",
+    },
+    down: {
+        icon: "<i class='far fa-arrow-alt-circle-down'></i>",
+        keyValue: "ArrowDown",
+    },
+    left: {
+        icon: "<i class='far fa-arrow-alt-circle-left'></i>",
+        keyValue: "ArrowLeft",
+    },
+};
 
-let arrowObject = "<div class='arrow'>Nun(o)tendo</div>";
+let arrowObject = `<div class='arrow'>${arrowType.down.icon}</div>`;
 
 function appendArrow() {
     $(".slider").append(arrowObject);
@@ -90,10 +111,6 @@ function rangeChecker() {
     }
 }
 
-let score = 0;
-
-
-
 
 // 4. All 3 event handlers will:
 //     - verify if the y-axis of the Arrow is within the "acceptable range (to be determined)" inside the hitrange container.
@@ -105,3 +122,6 @@ let score = 0;
 // 6. If arrow falls off page, remove arrow.
 
 // 7. repeat append Arrow "X" times;
+
+
+

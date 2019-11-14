@@ -1,11 +1,12 @@
 .arrow {
-    margin: 0;
-    padding: 0;
     position: absolute;
     top: 0;
-    width: 50px;
+    z-index: -1;
+    margin: 0;
+    padding: 0;
+    width: 100%;
     height: 50px;
-    border: 1px solid red;
+    text-align: center;
 
     i {
         font-size: 50px;

@@ -1,5 +1,16 @@
 .catch {
-    flex: 1 1 20%;
-    border: 1px solid red;
+    flex: 1 1 25%;
+    display: flex;
+    align-items: center;
     height: auto;
+    border-top: 5px solid red;
+}
+
+.catchSection {
+    flex: 1 1 25%;
+    text-align: center;
+
+    i {
+        font-size: 70px;
+    }
 }

@@ -1,14 +1,10 @@
-// Stretch Goal: 
-//  - More than 1 arrow at a time.
-//  - Increase to 4 columns (each with their own arrow - up down left right)
-//  - Space button to "pause" the game
-//  - Combo multiplier
-//  - Difficulty Levels (rate increase for speed, # of arrows appended)
-
-
-// MVP
-//  - 1 object moving from top to bottom. press an arrow key on keyboard associated, when it falls into a certain range within a "hit" box to register.
-
+// Stretch Goals
+// x Score counter decrease on miss
+// - More than 1 arrow at a time.
+// - Increase to 4 columns(each with their own arrow - up down left right)
+// - Space button to "pause" the game
+// - Combo multiplier
+// - Difficulty Levels(rate increase for speed, # of arrows appended)
 
 // Pseudocode
 
@@ -19,60 +15,98 @@
 
 //  - score counter
 let score = 0;
+let scoreSelector = $(".scoreboard");
+
+function updateScore() {
+    scoreSelector.text(score);
+};
 
 
 // 1. Find and select the parent container
 //     - then append Arrow (div with class .arrow) at top of page.
 //     - Arrow will be position absolute
 //     - Arrow will have a top and bottom value set. (aka Y-axis coordinates).
-// Arrow Font Awesome Reference Object
+
+// Arrow Type HTML Reference Object
 const arrowType = {
+    left: {
+        icon: "<i class='far fa-arrow-alt-circle-left'></i>",
+        keyValue: "ArrowLeft",
+        columnClass: ".column-left",
+        accumulator: 0,
+    },
     up: {
         icon: "<i class='far fa-arrow-alt-circle-up'></i>",
         keyValue: "ArrowUp",
-    },
-    right: {
-        icon: "<i class='far fa-arrow-alt-circle-right'></i>",
-        keyValue: "ArrowRight",
+        columnClass: ".column-up",
+        accumulator: 0,
     },
     down: {
         icon: "<i class='far fa-arrow-alt-circle-down'></i>",
         keyValue: "ArrowDown",
+        columnClass: ".column-down",
+        accumulator: 0,
     },
-    left: {
-        icon: "<i class='far fa-arrow-alt-circle-left'></i>",
-        keyValue: "ArrowLeft",
+    right: {
+        icon: "<i class='far fa-arrow-alt-circle-right'></i>",
+        keyValue: "ArrowRight",
+        columnClass: ".column-right",
+        accumulator: 0,
     },
 };
 
-let arrowObject = `<div class='arrow'>${arrowType.down.icon}</div>`;
+let arrowElement = "";
 
-function appendArrow() {
-    $(".slider").append(arrowObject);
+// Append arrow element
+function appendArrow(arrowDirection) {
+    // Accesses HTML values that correlates with arrowDirection
+    // accumulator is to give each arrow a unique class (for query/target later)
+    let accumulatorValue = arrowType[arrowDirection].accumulator;
+    let arrowIcon = arrowType[arrowDirection].icon;
+
+    arrowElement = `<div class='arrow arrow${accumulatorValue}'>${arrowIcon}</div>`;
+
+    // Push Data to reference for future
+    let arrowObject = {identifier: accumulatorValue, top: 0};
+    arrowData[arrowDirection].push(arrowObject);
+
+    $(`.column-${arrowDirection}`).append(arrowElement);
+    arrowType[arrowDirection].accumulator += 1;
 }
 
+
+// Insert Arrow Reference Data in array 
+
+const arrowData = {
+    left: [],
+    up: [],
+    down: [],
+    right: [],
+};
 
 // 2. Make function which shifts the Arrow down:
 //     - decrease the Y-axis coordinate values which loop at a set interval (to be determined).
 
 // arrowPosition value may become nested to an array for each arrow "pushed" into the array. will always select the array[0]
+
 let arrowPosition = 0;
-let containerHeight = 0;
 
+// Will be declared assuming the browser height will not be changed after the page loads.
+let containerHeight = parseInt($(".container").css("height").match(/[\.\d]/g).join(""));
 
+// Run gravity() for each arrow?
 function gravity() {
-    arrowPosition = $(".arrow").css("top").match(/\d/g);
-    let positionNumber = parseInt(arrowPosition.join(""));
-    $(".arrow").css("top", `${positionNumber + 1}px`);
+    //Find current arrow Y-axis
+    arrowPosition = parseInt($(".arrow").css("top").match(/[\.\d]/g).join(""));
+    // let positionNumber = parseInt(arrowPosition.join(""));
+    $(".arrow").css("top", `${arrowPosition + 1}px`);
     
-    containerHeight = $(".container").css("height").match(/\d/g);
-    let heightNumber = parseInt(containerHeight.join(""));
-    if (positionNumber > heightNumber) {
+    if (arrowPosition > containerHeight) {
         $(".arrow").remove();
-        appendArrow();
+        score --;
+        updateScore();
+        appendArrow("left");
     }
-
-    // rangeChecker();
 }
 
 setInterval(gravity, 0.05);
@@ -83,31 +117,30 @@ setInterval(gravity, 0.05);
 //     - mouseclick on hitrange container
 //     - screentap of hitrange container
     
-$(".catch").on("click tap", function() {
-    console.log("event triggered");
+$(".catchSection").on("click tap", function() {
     rangeChecker();
 })
 
 $("body").keydown(function(e) {
     if (e.key == "ArrowDown") {
-        console.log("DOWN");
+        // console.log("DOWN");
         rangeChecker();
-    } else {
-        console.log("hm");
     }
 })
 
 
 function rangeChecker() {
-    if (parseInt(arrowPosition.join("")) > ((parseInt(containerHeight.join(""))) - (parseInt($(".catch").css("height").match(/\d/g).join("")) / 10))) {
-        // console.log((parseInt($(".catch").css("height").match(/\d/g).join(""))));
+    arrowPosition = parseInt($(".arrow").css("top").match(/[\.\d]/g).join(""));
+    catchPosition = parseInt($(".column").css("height").match(/[\.\d]/g).join("")) * 0.95
+
+    if (arrowPosition > catchPosition) {
         $(".arrow").remove();
-        appendArrow();
+        appendArrow("left");
         score ++;
-        $(".scoreboard").text(score);
+        updateScore();
     } else {
         score --;
-        $(".scoreboard").text(score);
+        updateScore();
     }
 }
 

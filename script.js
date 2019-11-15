@@ -113,33 +113,64 @@ const arrowData = {
 // Will be declared assuming the browser height will not be changed after the page loads.
 const containerHeight = parseInt($(".container").css("height").match(/[\.\d]/g).join(""));
 
-
-let arrowPosition = 0;
-
-// HMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-// Run gravity() for each arrow?
 function gravity() {
     let thisPosition = 0;
 
     //Find current arrow Y-axis
     $.each(arrowData, function(key, value) {
-        $.each(value, function(key2, value2) {
-            $(`.column${cap(key)} .arrow${value2.identifier}`).css("top", `${value2.top + 1}px`);
-            value2.top++;
-        });
+        if (value.length !== 0) {
+            // for each arrow reference
+            $.each(value, function(key2, value2) {
+                $(`.column${cap(key)} .arrow${value2.identifier}`).css("top", `${value2.top + 1}px`);
+                value2.top++;
+            });
+            
+            // thisPosition = $(`.column${cap(key)} .arrow:first-of-type`).css("top").match(/[\.\d]/g).join("");
+            
+            // if (thisPosition !== undefined) {
 
-        thisPosition = $(`.column${cap(key)} .arrow:first-of-type`).css("top").match(/[\.\d]/g).join("");
+                thisPosition = $(`.column${cap(key)} .arrow:first-of-type`).css("top").match(/[\.\d]/g).join("");
 
-        if (thisPosition > containerHeight) {
-            $(`.column${cap(key)} .arrow:first-of-type`).remove();
-            score--;
-            updateScore();
-            appendArrow(key);
-        };
+                if (thisPosition > containerHeight) {
+                    $(`.column${cap(key)} .arrow:first-of-type`).remove();
+                    arrowData[key].shift();
+                    score--;
+                    updateScore();
+                    // appendArrow(key);
+                };
+            };
+        // };
     });
 };
 
 setInterval(gravity, 0.05);
+
+
+// Make appender object
+function appenderRng() {
+    return Math.floor(Math.random() * 10);
+};
+
+function arrowAppender() {
+    let arrowTypeRng = Math.floor(Math.random() * 4);
+
+    switch(arrowTypeRng) {
+        case 0:
+            appendArrow("left");
+            break;
+        case 1:
+            appendArrow("up");
+            break;
+        case 2:
+            appendArrow("down");
+            break;
+        case 3:
+            appendArrow("right");
+            break;
+    };
+};
+
+setInterval(arrowAppender, appenderRng() * 1000);
 
 
 // 3. Make the following event handlers: 
@@ -147,8 +178,26 @@ setInterval(gravity, 0.05);
 //     - mouseclick on hitrange container
 //     - screentap of hitrange container
     
-$(".catchSection").on("click tap", function() {
-    rangeChecker("left");
+$(".catchSection i").on("click", function(e) {
+    let catchDirection = e.target["attributes"]["data-direction"]["nodeValue"];
+    switch (catchDirection) {
+        case "left":
+            console.log("left");
+            rangeChecker("left");
+            break;
+        case "up":
+            console.log("up");
+            rangeChecker("up");
+            break;
+        case "down":
+            console.log("down");
+            rangeChecker("down");
+            break;
+        case "right":
+            console.log("right");
+            rangeChecker("right");
+            break;
+    };
 });
 
 $("body").keydown(function(e) {
@@ -177,6 +226,8 @@ function cap(string) {
     return (string.substr(0, 1).toUpperCase() + string.substr(1));
 };
 
+let arrowPosition = 0;
+
 // Will be declared assuming the browser height will not be changed after the page loads.
 const catchPosition = parseInt($(`.column`).css("height").match(/[\.\d]/g).join(""));
 
@@ -184,17 +235,20 @@ function rangeChecker(arrowDirection) {
     // Target oldest existing appended arrow
     let arrowSelector = $(`.column${cap(arrowDirection)} .arrow:first-of-type`);
 
-    arrowPosition = arrowSelector.css("top").match(/[\.\d]/g).join("");
+    if (arrowData[arrowDirection].length !== 0) {
 
-    if (arrowPosition > catchPosition) {
-        $(arrowSelector).remove();
-        arrowData[arrowDirection].shift();
-        appendArrow(arrowDirection);
-        score ++;
-        updateScore();
-    } else {
-        score --;
-        updateScore();
+        arrowPosition = arrowSelector.css("top").match(/[\.\d]/g).join("");
+        
+        if (arrowPosition > catchPosition) {
+            $(arrowSelector).remove();
+            arrowData[arrowDirection].shift();
+            // appendArrow(arrowDirection);
+            score ++;
+            updateScore();
+        } else {
+            score --;
+            updateScore();
+        }
     }
 };
 

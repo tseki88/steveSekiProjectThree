@@ -3,6 +3,7 @@
 // - More than 1 arrow at a time.
 // - Increase to 4 columns(each with their own arrow - up down left right)
 // - Space button to "pause" the game
+// - Add sound for when eventlistener triggers ? hit : miss;
 // - Combo multiplier
 // - Difficulty Levels(rate increase for speed, # of arrows appended)
 
@@ -21,7 +22,6 @@ function updateScore() {
     scoreSelector.text(score);
 };
 
-
 // 1. Find and select the parent container
 //     - then append Arrow (div with class .arrow) at top of page.
 //     - Arrow will be position absolute
@@ -32,25 +32,25 @@ const arrowType = {
     left: {
         icon: "<i class='far fa-arrow-alt-circle-left'></i>",
         keyValue: "ArrowLeft",
-        columnClass: ".column-left",
+        columnClass: ".columnLeft",
         accumulator: 0,
     },
     up: {
         icon: "<i class='far fa-arrow-alt-circle-up'></i>",
         keyValue: "ArrowUp",
-        columnClass: ".column-up",
+        columnClass: ".columnUp",
         accumulator: 0,
     },
     down: {
         icon: "<i class='far fa-arrow-alt-circle-down'></i>",
         keyValue: "ArrowDown",
-        columnClass: ".column-down",
+        columnClass: ".columnDown",
         accumulator: 0,
     },
     right: {
         icon: "<i class='far fa-arrow-alt-circle-right'></i>",
         keyValue: "ArrowRight",
-        columnClass: ".column-right",
+        columnClass: ".columnRight",
         accumulator: 0,
     },
 };
@@ -70,18 +70,38 @@ function appendArrow(arrowDirection) {
     let arrowObject = {identifier: accumulatorValue, top: 0};
     arrowData[arrowDirection].push(arrowObject);
 
-    $(`.column-${arrowDirection}`).append(arrowElement);
+    $(`.column${cap(arrowDirection)}`).append(arrowElement);
     arrowType[arrowDirection].accumulator += 1;
-}
+};
 
 
 // Insert Arrow Reference Data in array 
 
 const arrowData = {
-    left: [],
-    up: [],
-    down: [],
-    right: [],
+    "left": [
+        {
+            identifier: 0,
+            top: 0,
+        },
+    ],
+    "up": [
+        {
+            identifier: 0,
+            top: 0,
+        },
+    ],
+    "down": [
+        {
+            identifier: 0,
+            top: 0,
+        },
+    ],
+    "right": [
+        {
+            identifier: 0,
+            top: 0,
+        },
+    ],
 };
 
 // 2. Make function which shifts the Arrow down:
@@ -89,25 +109,38 @@ const arrowData = {
 
 // arrowPosition value may become nested to an array for each arrow "pushed" into the array. will always select the array[0]
 
-let arrowPosition = 0;
 
 // Will be declared assuming the browser height will not be changed after the page loads.
-let containerHeight = parseInt($(".container").css("height").match(/[\.\d]/g).join(""));
+const containerHeight = parseInt($(".container").css("height").match(/[\.\d]/g).join(""));
 
+
+// HMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 // Run gravity() for each arrow?
 function gravity() {
+    let thisPosition = 0;
+
     //Find current arrow Y-axis
-    arrowPosition = parseInt($(".arrow").css("top").match(/[\.\d]/g).join(""));
-    // let positionNumber = parseInt(arrowPosition.join(""));
-    $(".arrow").css("top", `${arrowPosition + 1}px`);
+    $.each(arrowData, function(key, value) {
+        let arrowPosition = 0;
+        // console.log(value);
+        $.each(value, function(key2, value2) {
+            // console.log(value2);
+            $(`.arrow${value2.identifier}`).css("top", `${value2.top + 1}px`);
+            value2.top += 1;
+        });
+    });
+
+    // target container-first. then check for first-of-type
     
-    if (arrowPosition > containerHeight) {
-        $(".arrow").remove();
+    // thisPosition = $(`.column .arrow:first-of-type`).css("top");
+
+    if (thisPosition > containerHeight) {
+        $(`.arrow${value2.identifier}`).remove();
         score --;
         updateScore();
         appendArrow("left");
-    }
-}
+    };
+};
 
 setInterval(gravity, 0.05);
 
@@ -118,31 +151,56 @@ setInterval(gravity, 0.05);
 //     - screentap of hitrange container
     
 $(".catchSection").on("click tap", function() {
-    rangeChecker();
-})
+    rangeChecker("left");
+});
 
 $("body").keydown(function(e) {
-    if (e.key == "ArrowDown") {
-        // console.log("DOWN");
-        rangeChecker();
-    }
-})
+    switch(e.key) {
+        case "ArrowLeft":
+            console.log("left");
+            rangeChecker("left");
+            break;
+        case "ArrowUp" :
+            console.log("up");
+            rangeChecker("up");
+            break;
+        case "ArrowDown":
+            console.log("down");
+            rangeChecker("down");
+            break;
+        case "ArrowRight":
+            console.log("right");
+            rangeChecker("right");
+            break;
+    };
+});
+
+// To account for camelCase requirement, targetting classes
+function cap(string) {
+    return (string.substr(0, 1).toUpperCase() + string.substr(1));
+};
+
+// Will be declared assuming the browser height will not be changed after the page loads.
+const catchPosition = parseInt($(`.column`).css("height").match(/[\.\d]/g).join(""));
 
 
-function rangeChecker() {
-    arrowPosition = parseInt($(".arrow").css("top").match(/[\.\d]/g).join(""));
-    catchPosition = parseInt($(".column").css("height").match(/[\.\d]/g).join("")) * 0.95
+function rangeChecker(arrowDirection) {
+    // Target oldest existing appended arrow
+    let arrowSelector = $(`.arrow${arrowData[arrowDirection][0][identifier]}`);
+
+    arrowPosition = arrowData[arrowDirection][0][top];
+    // css("top").match(/[\.\d]/g).join(""));
 
     if (arrowPosition > catchPosition) {
-        $(".arrow").remove();
-        appendArrow("left");
+        $(arrowSelector).remove();
+        appendArrow(arrowDirection);
         score ++;
         updateScore();
     } else {
         score --;
         updateScore();
     }
-}
+};
 
 
 // 4. All 3 event handlers will:
@@ -155,6 +213,3 @@ function rangeChecker() {
 // 6. If arrow falls off page, remove arrow.
 
 // 7. repeat append Arrow "X" times;
-
-
-

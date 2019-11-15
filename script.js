@@ -71,32 +71,32 @@ function appendArrow(arrowDirection) {
     arrowData[arrowDirection].push(arrowObject);
 
     $(`.column${cap(arrowDirection)}`).append(arrowElement);
-    arrowType[arrowDirection].accumulator += 1;
+    arrowType[arrowDirection].accumulator++;
 };
 
 
 // Insert Arrow Reference Data in array 
 
 const arrowData = {
-    "left": [
+    left: [
         {
             identifier: 0,
             top: 0,
         },
     ],
-    "up": [
+    up: [
         {
             identifier: 0,
             top: 0,
         },
     ],
-    "down": [
+    down: [
         {
             identifier: 0,
             top: 0,
         },
     ],
-    "right": [
+    right: [
         {
             identifier: 0,
             top: 0,
@@ -114,6 +114,8 @@ const arrowData = {
 const containerHeight = parseInt($(".container").css("height").match(/[\.\d]/g).join(""));
 
 
+let arrowPosition = 0;
+
 // HMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 // Run gravity() for each arrow?
 function gravity() {
@@ -121,25 +123,20 @@ function gravity() {
 
     //Find current arrow Y-axis
     $.each(arrowData, function(key, value) {
-        let arrowPosition = 0;
-        // console.log(value);
         $.each(value, function(key2, value2) {
-            // console.log(value2);
-            $(`.arrow${value2.identifier}`).css("top", `${value2.top + 1}px`);
-            value2.top += 1;
+            $(`.column${cap(key)} .arrow${value2.identifier}`).css("top", `${value2.top + 1}px`);
+            value2.top++;
         });
+
+        thisPosition = $(`.column${cap(key)} .arrow:first-of-type`).css("top").match(/[\.\d]/g).join("");
+
+        if (thisPosition > containerHeight) {
+            $(`.column${cap(key)} .arrow:first-of-type`).remove();
+            score--;
+            updateScore();
+            appendArrow(key);
+        };
     });
-
-    // target container-first. then check for first-of-type
-    
-    // thisPosition = $(`.column .arrow:first-of-type`).css("top");
-
-    if (thisPosition > containerHeight) {
-        $(`.arrow${value2.identifier}`).remove();
-        score --;
-        updateScore();
-        appendArrow("left");
-    };
 };
 
 setInterval(gravity, 0.05);
@@ -183,16 +180,15 @@ function cap(string) {
 // Will be declared assuming the browser height will not be changed after the page loads.
 const catchPosition = parseInt($(`.column`).css("height").match(/[\.\d]/g).join(""));
 
-
 function rangeChecker(arrowDirection) {
     // Target oldest existing appended arrow
-    let arrowSelector = $(`.arrow${arrowData[arrowDirection][0][identifier]}`);
+    let arrowSelector = $(`.column${cap(arrowDirection)} .arrow:first-of-type`);
 
-    arrowPosition = arrowData[arrowDirection][0][top];
-    // css("top").match(/[\.\d]/g).join(""));
+    arrowPosition = arrowSelector.css("top").match(/[\.\d]/g).join("");
 
     if (arrowPosition > catchPosition) {
         $(arrowSelector).remove();
+        arrowData[arrowDirection].shift();
         appendArrow(arrowDirection);
         score ++;
         updateScore();

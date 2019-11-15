@@ -178,7 +178,7 @@ setInterval(arrowAppender, appenderRng() * 1000);
 //     - mouseclick on hitrange container
 //     - screentap of hitrange container
     
-$(".catchSection i").on("click", function(e) {
+$(".catchSection i").on("click touchstart", function(e) {
     let catchDirection = e.target["attributes"]["data-direction"]["nodeValue"];
     switch (catchDirection) {
         case "left":

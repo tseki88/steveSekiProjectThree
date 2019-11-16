@@ -4,13 +4,24 @@
     align-items: center;
     height: auto;
     border-top: 5px solid red;
+    // border-radius: 50%;
 }
 
 .catchSection {
     flex: 1 1 25%;
     text-align: center;
+    border-radius: 50%;
 
     i {
         font-size: 70px;
+        border-radius: 50%;
     }
+}
+
+.pulse-red {
+    animation: shadow-pulse-red 0.5s 1;
+}
+
+.pulse-green {
+    animation: shadow-pulse-green 0.5s 1;
 }

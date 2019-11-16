@@ -2,6 +2,7 @@ body {
     margin: 0;
     height: 100vh;
     overflow: hidden;
+    perspective: 450px; 
 }
 
 .container {
@@ -11,7 +12,10 @@ body {
     flex-direction: column;
     width: 100%;
     height: 80%;
-    border: 4px solid black;
+    border-left: 2px solid whitesmoke;
+    border-right: 2px solid whitesmoke;
+    transform-origin: bottom;
+    transform: rotateX(5deg);
     overflow: hidden;
 }
 

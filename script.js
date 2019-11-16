@@ -1,7 +1,8 @@
 // Stretch Goals
 // x Score counter decrease on miss
-// - More than 1 arrow at a time.
-// - Increase to 4 columns(each with their own arrow - up down left right)
+// x More than 1 arrow at a time.
+// x Increase to 4 columns(each with their own arrow - up down left right)
+// x animation to show that an event handler took place
 // - Space button to "pause" the game
 // - Add sound for when eventlistener triggers ? hit : miss;
 // - Combo multiplier
@@ -125,21 +126,15 @@ function gravity() {
                 value2.top++;
             });
             
-            // thisPosition = $(`.column${cap(key)} .arrow:first-of-type`).css("top").match(/[\.\d]/g).join("");
-            
-            // if (thisPosition !== undefined) {
+            thisPosition = $(`.column${cap(key)} .arrow:first-of-type`).css("top").match(/[\.\d]/g).join("");
 
-                thisPosition = $(`.column${cap(key)} .arrow:first-of-type`).css("top").match(/[\.\d]/g).join("");
-
-                if (thisPosition > containerHeight) {
-                    $(`.column${cap(key)} .arrow:first-of-type`).remove();
-                    arrowData[key].shift();
-                    score--;
-                    updateScore();
-                    // appendArrow(key);
-                };
+            if (thisPosition > containerHeight) {
+                $(`.column${cap(key)} .arrow:first-of-type`).remove();
+                arrowData[key].shift();
+                score--;
+                updateScore();
             };
-        // };
+        };
     });
 };
 
@@ -170,8 +165,26 @@ function arrowAppender() {
     };
 };
 
-setInterval(arrowAppender, appenderRng() * 1000);
+// setInterval(arrowAppender, appenderRng() * 800);
 
+let pauseArrow;
+let pauseGravity;
+
+function pauseInterval() {
+    if (!pauseArrow) {
+        pauseArrow = window.setInterval(arrowAppender, appenderRng() * 800);
+    } else {
+        window.clearInterval(pauseArrow);
+        pauseArrow = null;
+    }
+
+    if (!pauseGravity) {
+        pauseGravity = window.setInterval(gravity, 0.05);
+    } else {
+        window.clearInterval(pauseGravity);
+        pauseGravity = null;
+    }
+}
 
 // 3. Make the following event handlers: 
 //     - "down arrow" key is pressed on the keyboard
@@ -218,12 +231,27 @@ $("body").keydown(function(e) {
             console.log("right");
             rangeChecker("right");
             break;
+        case " ":
+            console.log("spacebar");
+            pauseInterval();
+            break;
+        case "Spacebar":
+            console.log("spacebar");
+            pauseInterval();
+            break;
     };
 });
 
 // To account for camelCase requirement, targetting classes
 function cap(string) {
     return (string.substr(0, 1).toUpperCase() + string.substr(1));
+};
+
+function animator(query, animateClass) {
+    $(query).addClass(animateClass);
+    $(query).on("animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd", function() {
+        $(query).removeClass(animateClass);
+    });
 };
 
 let arrowPosition = 0;
@@ -240,16 +268,17 @@ function rangeChecker(arrowDirection) {
         arrowPosition = arrowSelector.css("top").match(/[\.\d]/g).join("");
         
         if (arrowPosition > catchPosition) {
+            animator($(`.catch${cap(arrowDirection)}`), "pulse-green");
             $(arrowSelector).remove();
             arrowData[arrowDirection].shift();
-            // appendArrow(arrowDirection);
             score ++;
             updateScore();
         } else {
+            animator($(`.catch${cap(arrowDirection)}`), "pulse-red");
             score --;
             updateScore();
         }
-    }
+    };
 };
 
 

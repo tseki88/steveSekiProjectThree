@@ -1,0 +1,19 @@
+@keyframes shadow-pulse-red
+{
+    0% {
+        box-shadow: 0 0 0 0px rgba(255, 0, 0, 0.4);
+    }
+    100% {
+        box-shadow: 0 0 0 50px rgba(255, 0, 0, 0);
+    }
+}
+
+@keyframes shadow-pulse-green
+{
+    0% {
+        box-shadow: 0 0 0 0px rgba(0, 255, 0, 0.8);
+    }
+    100% {
+        box-shadow: 0 0 0 50px rgba(0, 255, 0, 0);
+    }
+}

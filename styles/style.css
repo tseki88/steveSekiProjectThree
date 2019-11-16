@@ -191,7 +191,9 @@ html {
 body {
   margin: 0;
   height: 100vh;
-  overflow: hidden; }
+  overflow: hidden;
+  -webkit-perspective: 450px;
+          perspective: 450px; }
 
 .container {
   position: relative;
@@ -205,7 +207,12 @@ body {
           flex-direction: column;
   width: 100%;
   height: 80%;
-  border: 4px solid black;
+  border-left: 2px solid whitesmoke;
+  border-right: 2px solid whitesmoke;
+  -webkit-transform-origin: bottom;
+          transform-origin: bottom;
+  -webkit-transform: rotateX(5deg);
+          transform: rotateX(5deg);
   overflow: hidden; }
 
 .columnHolder {
@@ -228,6 +235,38 @@ body {
       -ms-flex-pack: center;
           justify-content: center;
   height: auto; }
+
+@-webkit-keyframes shadow-pulse-red {
+  0% {
+    -webkit-box-shadow: 0 0 0 0px rgba(255, 0, 0, 0.4);
+            box-shadow: 0 0 0 0px rgba(255, 0, 0, 0.4); }
+  100% {
+    -webkit-box-shadow: 0 0 0 50px rgba(255, 0, 0, 0);
+            box-shadow: 0 0 0 50px rgba(255, 0, 0, 0); } }
+
+@keyframes shadow-pulse-red {
+  0% {
+    -webkit-box-shadow: 0 0 0 0px rgba(255, 0, 0, 0.4);
+            box-shadow: 0 0 0 0px rgba(255, 0, 0, 0.4); }
+  100% {
+    -webkit-box-shadow: 0 0 0 50px rgba(255, 0, 0, 0);
+            box-shadow: 0 0 0 50px rgba(255, 0, 0, 0); } }
+
+@-webkit-keyframes shadow-pulse-green {
+  0% {
+    -webkit-box-shadow: 0 0 0 0px rgba(0, 255, 0, 0.8);
+            box-shadow: 0 0 0 0px rgba(0, 255, 0, 0.8); }
+  100% {
+    -webkit-box-shadow: 0 0 0 50px rgba(0, 255, 0, 0);
+            box-shadow: 0 0 0 50px rgba(0, 255, 0, 0); } }
+
+@keyframes shadow-pulse-green {
+  0% {
+    -webkit-box-shadow: 0 0 0 0px rgba(0, 255, 0, 0.8);
+            box-shadow: 0 0 0 0px rgba(0, 255, 0, 0.8); }
+  100% {
+    -webkit-box-shadow: 0 0 0 50px rgba(0, 255, 0, 0);
+            box-shadow: 0 0 0 50px rgba(0, 255, 0, 0); } }
 
 .arrow {
   position: absolute;
@@ -258,6 +297,16 @@ body {
   -webkit-box-flex: 1;
       -ms-flex: 1 1 25%;
           flex: 1 1 25%;
-  text-align: center; }
+  text-align: center;
+  border-radius: 50%; }
   .catchSection i {
-    font-size: 70px; }
+    font-size: 70px;
+    border-radius: 50%; }
+
+.pulse-red {
+  -webkit-animation: shadow-pulse-red 0.5s 1;
+          animation: shadow-pulse-red 0.5s 1; }
+
+.pulse-green {
+  -webkit-animation: shadow-pulse-green 0.5s 1;
+          animation: shadow-pulse-green 0.5s 1; }

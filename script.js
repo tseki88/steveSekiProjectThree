@@ -72,28 +72,28 @@ const arrowType = {
 // Keeps track of each arrow position, and the ID to reference which arrow
 const arrowData = {
     left: [
-        // {
-        //     identifier: 0,
-        //     top: 0,
-        // },
+        {
+            identifier: 0,
+            top: 0,
+        },
     ],
     up: [
-        // {
-        //     identifier: 0,
-        //     top: 0,
-        // },
+        {
+            identifier: 0,
+            top: 0,
+        },
     ],
     down: [
-        // {
-        //     identifier: 0,
-        //     top: 0,
-        // },
+        {
+            identifier: 0,
+            top: 0,
+        },
     ],
     right: [
-        // {
-        //     identifier: 0,
-        //     top: 0,
-        // },
+        {
+            identifier: 0,
+            top: 0,
+        },
     ],
 };
 

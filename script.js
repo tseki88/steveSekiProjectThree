@@ -3,12 +3,26 @@
 // x More than 1 arrow at a time.
 // x Increase to 4 columns(each with their own arrow - up down left right)
 // x animation to show that an event handler took place
-// - Space button to "pause" the game
-// - Add sound for when eventlistener triggers ? hit : miss;
-// - Combo multiplier
-// - Difficulty Levels(rate increase for speed, # of arrows appended)
+// x Space button to "pause" the game
 
-// Pseudocode
+// - Add sound for when eventlistener triggers ? hit : miss;
+// - Start Menu
+// - Win / GameOver conditions..?
+// - Difficulty Levels(rate increase for speed, # of arrows appended)
+// - Combo multiplier
+
+
+
+// Sound File Credits:
+//  - Michel Baradari
+//      - tick.wav
+//      - flagdrop.wav
+//  - Space shooter sound fx pack 1 by Dravenx
+//      - hit.wav
+//      - miss.wav
+//      - gameover.wav
+
+
 
 // Objects involved: 
 //  - Parent Container
@@ -23,12 +37,9 @@ function updateScore() {
     scoreSelector.text(score);
 };
 
-// 1. Find and select the parent container
-//     - then append Arrow (div with class .arrow) at top of page.
-//     - Arrow will be position absolute
-//     - Arrow will have a top and bottom value set. (aka Y-axis coordinates).
 
 // Arrow Type HTML Reference Object
+// Accumulator used to add reference for each new arrow
 const arrowType = {
     left: {
         icon: "<i class='far fa-arrow-alt-circle-left'></i>",
@@ -56,9 +67,41 @@ const arrowType = {
     },
 };
 
-let arrowElement = "";
+
+// Insert Arrow Reference Data
+// Keeps track of each arrow position, and the ID to reference which arrow
+const arrowData = {
+    left: [
+        // {
+        //     identifier: 0,
+        //     top: 0,
+        // },
+    ],
+    up: [
+        // {
+        //     identifier: 0,
+        //     top: 0,
+        // },
+    ],
+    down: [
+        // {
+        //     identifier: 0,
+        //     top: 0,
+        // },
+    ],
+    right: [
+        // {
+        //     identifier: 0,
+        //     top: 0,
+        // },
+    ],
+};
+
+
 
 // Append arrow element
+let arrowElement = "";
+
 function appendArrow(arrowDirection) {
     // Accesses HTML values that correlates with arrowDirection
     // accumulator is to give each arrow a unique class (for query/target later)
@@ -76,40 +119,9 @@ function appendArrow(arrowDirection) {
 };
 
 
-// Insert Arrow Reference Data in array 
 
-const arrowData = {
-    left: [
-        {
-            identifier: 0,
-            top: 0,
-        },
-    ],
-    up: [
-        {
-            identifier: 0,
-            top: 0,
-        },
-    ],
-    down: [
-        {
-            identifier: 0,
-            top: 0,
-        },
-    ],
-    right: [
-        {
-            identifier: 0,
-            top: 0,
-        },
-    ],
-};
 
-// 2. Make function which shifts the Arrow down:
-//     - decrease the Y-axis coordinate values which loop at a set interval (to be determined).
-
-// arrowPosition value may become nested to an array for each arrow "pushed" into the array. will always select the array[0]
-
+// function which shifts the Arrow down:
 
 // Will be declared assuming the browser height will not be changed after the page loads.
 const containerHeight = parseInt($(".container").css("height").match(/[\.\d]/g).join(""));
@@ -138,7 +150,7 @@ function gravity() {
     });
 };
 
-setInterval(gravity, 0.05);
+let gravityInterval = setInterval(gravity, 0.05);
 
 
 // Make appender object
@@ -165,26 +177,30 @@ function arrowAppender() {
     };
 };
 
-// setInterval(arrowAppender, appenderRng() * 800);
+let arrowAppendInterval = setInterval(arrowAppender, appenderRng() * 100);
 
-let pauseArrow;
-let pauseGravity;
+
+// Pause Functionality
+let pauseArrow = false;
+let pauseGravity = false;
 
 function pauseInterval() {
-    if (!pauseArrow) {
-        pauseArrow = window.setInterval(arrowAppender, appenderRng() * 800);
-    } else {
-        window.clearInterval(pauseArrow);
-        pauseArrow = null;
+    if (pauseArrow === true) {
+        arrowAppendInterval = setInterval(arrowAppender, appenderRng() * 800);
+        pauseArrow = false;
+    } else if (pauseArrow === false) {
+        clearInterval(arrowAppendInterval);
+        pauseArrow = true;
     }
 
-    if (!pauseGravity) {
-        pauseGravity = window.setInterval(gravity, 0.05);
-    } else {
-        window.clearInterval(pauseGravity);
-        pauseGravity = null;
+    if (pauseGravity === true) {
+        gravityInterval = setInterval(gravity, 0.05);
+        pauseGravity = false;
+    } else if (pauseGravity === false) {
+        clearInterval(gravityInterval);
+        pauseGravity = true;
     }
-}
+};
 
 // 3. Make the following event handlers: 
 //     - "down arrow" key is pressed on the keyboard

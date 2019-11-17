@@ -5,3 +5,20 @@ h1 {
 .score {
     margin: 0;
 }
+
+.pause {
+    position: absolute;
+    top: 0;
+    right: 5%;
+    width: 50px;
+    height: 50px;
+    margin: 0;
+    padding: 0;
+    border: 2px solid white;
+    border-radius: 5px;
+
+    i {
+        line-height: 50px;
+        vertical-align: middle;
+    }
+}

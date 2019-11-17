@@ -212,6 +212,9 @@ body {
   -webkit-perspective: 450px;
           perspective: 450px; }
 
+.relative {
+  position: relative; }
+
 .container {
   position: relative;
   z-index: 5;
@@ -234,8 +237,8 @@ body {
 
 .columnHolder {
   -webkit-box-flex: 1;
-      -ms-flex: 1 1 75%;
-          flex: 1 1 75%;
+      -ms-flex: 1 1 85%;
+          flex: 1 1 85%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex; }
@@ -307,6 +310,20 @@ h1 {
 .score {
   margin: 0; }
 
+.pause {
+  position: absolute;
+  top: 0;
+  right: 5%;
+  width: 50px;
+  height: 50px;
+  margin: 0;
+  padding: 0;
+  border: 2px solid white;
+  border-radius: 5px; }
+  .pause i {
+    line-height: 50px;
+    vertical-align: middle; }
+
 .arrow {
   position: absolute;
   top: 0;
@@ -320,8 +337,8 @@ h1 {
 
 .catch {
   -webkit-box-flex: 1;
-      -ms-flex: 1 1 25%;
-          flex: 1 1 25%;
+      -ms-flex: 1 1 15%;
+          flex: 1 1 15%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

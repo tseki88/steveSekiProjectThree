@@ -5,7 +5,7 @@
 // x animation to show that an event handler took place
 // x Space button to "pause" the game
 // x Start Menu - start with interval not set.
-// - Workaround for mobile (touchstart and click register as 2 events at the moment, resulting in -2 points when clicked too early)
+// x Workaround for mobile (touchstart and click register as 2 events at the moment, resulting in -2 points when clicked too early)
 // - button for pause
 // - Win / GameOver conditions..?
 // - make sure to init() / document ready
@@ -74,6 +74,14 @@ $(document).ready(function() {
             columnClass: ".columnRight",
             accumulator: 0,
         },
+        pause: {
+            icon: "<i class='fas fa-pause'></i>",
+            color: "red"
+        },
+        resume: {
+            icon: "<i class='fas fa-play'></i>",
+            color: "green"
+        },
     };
 
 
@@ -131,7 +139,6 @@ $(document).ready(function() {
     // Start Button
     $(".startButton").on("click", function() {
         startApp();
-        this.off();
     });
 
     // Space Button to Start Game for Accessibility
@@ -170,6 +177,7 @@ $(document).ready(function() {
             pauseArrow = false;
             pauseGravity = false;
             enableEvents();
+            pauseIcon("pause");
         }, 5000);
     }
 
@@ -242,9 +250,11 @@ $(document).ready(function() {
         if (pauseArrow === true) {
             arrowAppendInterval = setInterval(arrowAppender, appenderRng() * 100);
             pauseArrow = false;
+            pauseIcon("pause");
         } else if (pauseArrow === false) {
             clearInterval(arrowAppendInterval);
             pauseArrow = true;
+            pauseIcon("resume");
         }
 
         if (pauseGravity === true) {
@@ -256,10 +266,21 @@ $(document).ready(function() {
         }
     };
 
+    const pauseSelect = $(".pause");
+
+    function pauseIcon(status) {
+        pauseSelect.css(`background-color`, `${arrowType[status].color}`);
+        pauseSelect.html(arrowType[status].icon);
+    };
+
+    
     //Event Handlers
     
     // if() statement used to mitigate issue on mobile registering this event twice.
     function enableEvents() {
+        pauseSelect.on("touchstart mouseup", function() {
+            pauseInterval();
+        });
 
         $(".catchSection i").on("touchstart mouseup", function(e) {
             let catchDirection = e.target["attributes"]["data-direction"]["nodeValue"];

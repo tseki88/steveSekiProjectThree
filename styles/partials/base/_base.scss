@@ -7,6 +7,10 @@ body {
     perspective: 450px;
 }
 
+.relative {
+    position: relative;
+}
+
 .container {
     position: relative;
     z-index: 5;
@@ -23,7 +27,7 @@ body {
 }
 
 .columnHolder {
-    flex: 1 1 75%;
+    flex: 1 1 85%;
     display: flex;
 }
 

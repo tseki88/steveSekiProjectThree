@@ -4,8 +4,9 @@
 // x Increase to 4 columns(each with their own arrow - up down left right)
 // x animation to show that an event handler took place
 // x Space button to "pause" the game
-// x Workaround for mobile (touchstart and click register as 2 events at the moment, resulting in -2 points when clicked too early)
 // x Start Menu - start with interval not set.
+// - Workaround for mobile (touchstart and click register as 2 events at the moment, resulting in -2 points when clicked too early)
+// - button for pause
 // - Win / GameOver conditions..?
 // - make sure to init() / document ready
 // - Add sound for when eventlistener triggers ? hit : miss;
@@ -260,9 +261,9 @@ $(document).ready(function() {
     // if() statement used to mitigate issue on mobile registering this event twice.
     function enableEvents() {
 
-        $(".catchSection i").on("click touchstart", function(e) {
+        $(".catchSection i").on("click touchend", function(e) {
             let catchDirection = e.target["attributes"]["data-direction"]["nodeValue"];
-            if (e.type == "touchstart") {
+            if (e.type == "touchend") {
                 switch (catchDirection) {
                     case "left":
                         rangeChecker("left");

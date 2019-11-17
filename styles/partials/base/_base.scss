@@ -1,8 +1,10 @@
 body {
+    background-image: url(../assets/background.jpg);
+    // img src: www.wikitree.com/photo/jpg/Tileable_Background_Images
     margin: 0;
     height: 100vh;
     overflow: hidden;
-    perspective: 450px; 
+    perspective: 450px;
 }
 
 .container {
@@ -17,6 +19,7 @@ body {
     transform-origin: bottom;
     transform: rotateX(5deg);
     overflow: hidden;
+
 }
 
 .columnHolder {

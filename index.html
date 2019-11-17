@@ -10,10 +10,20 @@
 </head>
 <body>
     <header>
-        <h1>Falling Boxes</h1>
-        <p>Score: <span class="scoreboard">0</span></p>
+        <h1>LUDR Maddness</h1>
+        <p class="score">Score: <span class="scoreboard">0</span></p>
     </header>
     <main class="container">
+        <div class="startScreen">
+            <h2>Welcome to the Maddness</h2>
+            <p>How to play:</p>
+            <ul>
+                <li>Hit the key at the right timing.</li>
+                <li>Use the [left][up][down][right] on your keyboard or tap/click on the bottom arrow directly.</li>
+            </ul>
+            <button type="button" class="startButton">Start Game</button>
+            <!-- <p class="mobileHide">*[spacebar] can be used to start game</p> -->
+        </div>
         <div class="columnHolder">
             <div class="column columnLeft">
                 <div class="arrow arrow0"><i class="far fa-arrow-alt-circle-left"></i></div>
@@ -36,7 +46,7 @@
         </div>
     </main>
     <footer>
-        <small>By Steve Seki</small>
+        <small>Left Up Down Right Maddness | By Steve Seki</small>
     </footer>
     <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
     <script src="./script.js"></script>

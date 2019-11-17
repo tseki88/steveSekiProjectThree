@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css?family=Electrolize|Turret+Road&display=swap");
 html {
   line-height: 1.15;
   -ms-text-size-adjust: 100%;
@@ -189,6 +190,22 @@ html {
   overflow: hidden; }
 
 body {
+  font-family: 'Electrolize', sans-serif;
+  font-size: 20px;
+  text-align: center;
+  color: white; }
+
+.score,
+.countdown {
+  font-family: 'Turret Road', cursive;
+  text-transform: uppercase; }
+
+.score {
+  font-size: 1.8rem;
+  color: greenyellow; }
+
+body {
+  background-image: url(../assets/background.jpg);
   margin: 0;
   height: 100vh;
   overflow: hidden;
@@ -238,35 +255,57 @@ body {
 
 @-webkit-keyframes shadow-pulse-red {
   0% {
-    -webkit-box-shadow: 0 0 0 0px rgba(255, 0, 0, 0.4);
-            box-shadow: 0 0 0 0px rgba(255, 0, 0, 0.4); }
+    -webkit-box-shadow: 0 0 0 0px red;
+            box-shadow: 0 0 0 0px red;
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2); }
   100% {
     -webkit-box-shadow: 0 0 0 50px rgba(255, 0, 0, 0);
-            box-shadow: 0 0 0 50px rgba(255, 0, 0, 0); } }
+            box-shadow: 0 0 0 50px rgba(255, 0, 0, 0);
+    -webkit-transform: scale(1);
+            transform: scale(1); } }
 
 @keyframes shadow-pulse-red {
   0% {
-    -webkit-box-shadow: 0 0 0 0px rgba(255, 0, 0, 0.4);
-            box-shadow: 0 0 0 0px rgba(255, 0, 0, 0.4); }
+    -webkit-box-shadow: 0 0 0 0px red;
+            box-shadow: 0 0 0 0px red;
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2); }
   100% {
     -webkit-box-shadow: 0 0 0 50px rgba(255, 0, 0, 0);
-            box-shadow: 0 0 0 50px rgba(255, 0, 0, 0); } }
+            box-shadow: 0 0 0 50px rgba(255, 0, 0, 0);
+    -webkit-transform: scale(1);
+            transform: scale(1); } }
 
 @-webkit-keyframes shadow-pulse-green {
   0% {
-    -webkit-box-shadow: 0 0 0 0px rgba(0, 255, 0, 0.8);
-            box-shadow: 0 0 0 0px rgba(0, 255, 0, 0.8); }
+    -webkit-box-shadow: 0 0 0 0px lime;
+            box-shadow: 0 0 0 0px lime;
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2); }
   100% {
     -webkit-box-shadow: 0 0 0 50px rgba(0, 255, 0, 0);
-            box-shadow: 0 0 0 50px rgba(0, 255, 0, 0); } }
+            box-shadow: 0 0 0 50px rgba(0, 255, 0, 0);
+    -webkit-transform: scale(1);
+            transform: scale(1); } }
 
 @keyframes shadow-pulse-green {
   0% {
-    -webkit-box-shadow: 0 0 0 0px rgba(0, 255, 0, 0.8);
-            box-shadow: 0 0 0 0px rgba(0, 255, 0, 0.8); }
+    -webkit-box-shadow: 0 0 0 0px lime;
+            box-shadow: 0 0 0 0px lime;
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2); }
   100% {
     -webkit-box-shadow: 0 0 0 50px rgba(0, 255, 0, 0);
-            box-shadow: 0 0 0 50px rgba(0, 255, 0, 0); } }
+            box-shadow: 0 0 0 50px rgba(0, 255, 0, 0);
+    -webkit-transform: scale(1);
+            transform: scale(1); } }
+
+h1 {
+  margin-bottom: 0; }
+
+.score {
+  margin: 0; }
 
 .arrow {
   position: absolute;
@@ -275,8 +314,7 @@ body {
   margin: 0;
   padding: 0;
   width: 100%;
-  height: 50px;
-  text-align: center; }
+  height: 50px; }
   .arrow i {
     font-size: 50px; }
 
@@ -297,16 +335,37 @@ body {
   -webkit-box-flex: 1;
       -ms-flex: 1 1 25%;
           flex: 1 1 25%;
-  text-align: center;
   border-radius: 50%; }
   .catchSection i {
     font-size: 70px;
     border-radius: 50%; }
 
 .pulse-red {
-  -webkit-animation: shadow-pulse-red 0.5s 1;
-          animation: shadow-pulse-red 0.5s 1; }
+  -webkit-animation: shadow-pulse-red 0.18s 1;
+          animation: shadow-pulse-red 0.18s 1; }
 
 .pulse-green {
-  -webkit-animation: shadow-pulse-green 0.5s 1;
-          animation: shadow-pulse-green 0.5s 1; }
+  -webkit-animation: shadow-pulse-green 0.18s 1;
+          animation: shadow-pulse-green 0.18s 1; }
+
+.startScreen {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  z-index: 20;
+  min-width: 300px;
+  padding: 40px 10px;
+  color: black;
+  background-color: whitesmoke;
+  border: 5px solid black;
+  border-radius: 25px; }
+  .startScreen p {
+    margin: 0; }
+  .startScreen ul {
+    text-align: left; }
+  .startScreen .countdown {
+    font-size: 3rem;
+    font-weight: bold;
+    width: 300px; }

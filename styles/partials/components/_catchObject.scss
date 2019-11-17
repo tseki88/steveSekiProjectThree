@@ -9,7 +9,6 @@
 
 .catchSection {
     flex: 1 1 25%;
-    text-align: center;
     border-radius: 50%;
 
     i {
@@ -19,9 +18,9 @@
 }
 
 .pulse-red {
-    animation: shadow-pulse-red 0.5s 1;
+    animation: shadow-pulse-red 0.18s 1;
 }
 
 .pulse-green {
-    animation: shadow-pulse-green 0.5s 1;
+    animation: shadow-pulse-green 0.18s 1;
 }

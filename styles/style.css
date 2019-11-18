@@ -320,7 +320,6 @@ h1 {
       -ms-flex-align: center;
           align-items: center; }
 
-.hp
 .score,
 .hp {
   margin: 0; }
@@ -390,7 +389,7 @@ h1 {
           transform: translate(-50%, -50%);
   z-index: 20;
   min-width: 300px;
-  padding: 40px 10px;
+  padding: 20px 10px;
   color: black;
   background-color: whitesmoke;
   border: 5px solid black;

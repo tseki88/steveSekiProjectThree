@@ -222,7 +222,7 @@ $(document).ready(function() {
         $(".startScreen").hide();
         countScreenSelector.show();
 
-        countScreenSelector.html("<p class='countdown'>Beginning Game</p>");
+        countScreenSelector.html("<p class='countdown'>Initializing...</p>");
         setTimeout(() => {
             countScreenSelector.html("<p class='countdown'>3</p>").delay(1000);
             playSound("tick");
@@ -234,11 +234,11 @@ $(document).ready(function() {
         setTimeout(() => {
             countScreenSelector.html("<p class='countdown'>1</p>").delay(1000);
             playSound("tick");
-        }, 3500);
+        }, 3000);
         setTimeout(() => {
-            countScreenSelector.html("<p class='countdown'>Go!</p>").delay(1000);
+            countScreenSelector.html("<p class='countdown'>--begin--</p>").delay(1000);
             playSound("begin");
-        }, 5000);
+        }, 4000);
         setTimeout(() => {
             countScreenSelector.hide();
             arrowAppendInterval = setInterval(arrowAppender, 800);
@@ -248,7 +248,7 @@ $(document).ready(function() {
             enableEvents();
             pauseEventEnabler();
             pauseIcon("pause");
-        }, 6500);
+        }, 5000);
     }
 
 

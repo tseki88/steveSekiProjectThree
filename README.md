@@ -1,5 +1,8 @@
 # Project 3 Proposal
 
+known issues:
+- firefox: setInterval time latency, sound effect may not trigger
+
 ## MVP
 - 1 arrow object moving from top to bottom. 
 - When the arrow falls into the acceptable range within a "hit" box, press the associated arrow key on keyboard (or click / tap on hitrange container) to evaluate. 

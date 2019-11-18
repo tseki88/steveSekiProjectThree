@@ -196,12 +196,15 @@ body {
   color: white; }
 
 .score,
+.hp,
 .countdown {
   font-family: 'Turret Road', cursive;
   text-transform: uppercase; }
 
-.score {
+.score,
+.hp {
   font-size: 1.8rem;
+  font-weight: bold;
   color: greenyellow; }
 
 body {
@@ -307,7 +310,19 @@ body {
 h1 {
   margin-bottom: 0; }
 
-.score {
+.status {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center; }
+
+.hp
+.score,
+.hp {
   margin: 0; }
 
 .pause {
@@ -365,7 +380,9 @@ h1 {
   -webkit-animation: shadow-pulse-green 0.18s 1;
           animation: shadow-pulse-green 0.18s 1; }
 
-.startScreen {
+.startScreen,
+.countScreen,
+.endScreen {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -377,12 +394,24 @@ h1 {
   color: black;
   background-color: whitesmoke;
   border: 5px solid black;
-  border-radius: 25px; }
-  .startScreen p {
+  border-radius: 25px;
+  -webkit-box-shadow: gray 0px 0px 20px 10px;
+          box-shadow: gray 0px 0px 20px 10px; }
+  .startScreen p,
+  .countScreen p,
+  .endScreen p {
     margin: 0; }
-  .startScreen ul {
+  .startScreen ul,
+  .countScreen ul,
+  .endScreen ul {
     text-align: left; }
-  .startScreen .countdown {
+  .startScreen .countdown,
+  .countScreen .countdown,
+  .endScreen .countdown {
     font-size: 3rem;
     font-weight: bold;
     width: 300px; }
+
+.countScreen,
+.endScreen {
+  display: none; }

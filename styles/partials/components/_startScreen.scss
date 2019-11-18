@@ -1,4 +1,6 @@
-.startScreen {
+.startScreen,
+.countScreen,
+.endScreen {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -10,6 +12,7 @@
     background-color: whitesmoke;
     border: 5px solid black;
     border-radius: 25px;
+    box-shadow: gray 0px 0px 20px 10px;
 
     p {
         margin: 0;
@@ -24,4 +27,9 @@
         font-weight: bold;
         width: 300px;
     }
+}
+
+.countScreen,
+.endScreen {
+    display: none;
 }

@@ -8,12 +8,15 @@ body {
 }
 
 .score,
+.hp,
 .countdown {
     font-family: 'Turret Road', cursive;
     text-transform: uppercase;
 }
 
-.score {
+.score,
+.hp {
     font-size: 1.8rem;
+    font-weight: bold;
     color: greenyellow;
 }

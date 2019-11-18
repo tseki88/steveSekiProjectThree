@@ -6,10 +6,10 @@
 // x Space button to "pause" the game
 // x Start Menu - start with interval not set.
 // x Workaround for mobile (touchstart and click register as 2 events at the moment, resulting in -2 points when clicked too early)
-// - button for pause
-// - Win / GameOver conditions..?
+// x button for pause
+// x Win / GameOver conditions..?
 // - make sure to init() / document ready
-// - Add sound for when eventlistener triggers ? hit : miss;
+// x Add sound for when eventlistener triggers ? hit : miss;
 // - Difficulty Levels(rate increase for speed, # of arrows appended)
 // - Combo multiplier
 
@@ -19,10 +19,12 @@
 //  - Michel Baradari
 //      - tick.wav
 //      - flagdrop.wav
+//      - resume.wav
 //  - Space shooter sound fx pack 1 by Dravenx
 //      - hit.wav
 //      - miss.wav
 //      - gameover.wav
+//      - pause.wav
 
 
 $(document).ready(function() {
@@ -30,17 +32,91 @@ $(document).ready(function() {
     const app = {};
 
     app.init = function() {
+    };
+    
+    startEventHandler();
+    // app.init();
 
+    // HP counter
+    let hp = 20;
+    const hpSelector = $(".hpStatus");
+
+    function updateHp() {
+        hpSelector.text(hp);
+
+        if (hp == 0) {
+            gameOver();
+        } else if (hp < 6) {
+            hpSelector.css("color", "red");
+        } else if (hp < 11) {
+            hpSelector.css("color", "yellow");
+        } else {
+            hpSelector.css("color", "greenyellow");
+        }
     };
 
-    // Objects involved: 
-    //  - Parent Container
-    //  - Arrow
-    //  - "hit" range container
+    function eventDisabler() {
+        $("body").off();
+        $(".catchSection i").off();
+    }
 
-    //  - score counter
+
+    function gameOver() {
+        eventDisabler();
+        pauseSelect.off();
+        countScreenSelector.hide();
+        $(".finalScore").text(score);
+        $(".endScreen").show();
+        playSound("gameover");
+
+        clearInterval(gravityInterval);
+        pauseGravity = true;
+        clearInterval(arrowAppendInterval);
+        pauseArrow = true;
+        arrowType["left"]["accumulator"] = 0;
+        arrowType["up"]["accumulator"] = 0;
+        arrowType["down"]["accumulator"] = 0;
+        arrowType["right"]["accumulator"] = 0;
+        arrowData["left"] = [];
+        arrowData["up"] = [];
+        arrowData["down"] = [];
+        arrowData["right"] = [];
+
+        // Reset Button
+        $(".resetButton").on("click", function () {
+            resetApp();
+        });
+    
+        // Space Button to Start Game for Accessibility
+        $("body").on("keydown", function (e) {
+            switch (e.key) {
+                case "spacebar":
+                    resetApp();
+                    break;
+                case " ":
+                    resetApp();
+                    break;
+            };
+        });
+    }
+
+
+    // Reset App
+    function resetApp() {
+        $(".column").html("");
+        score = 0;
+        updateScore();
+        hp = 20;
+        updateHp();
+        $(".endScreen").hide();
+        $(".startScreen").show();
+        playSound("resume");
+        startEventHandler();
+    };
+
+    // Score counter
     let score = 0;
-    const scoreSelector = $(".scoreboard");
+    const scoreSelector = $(".scoreStatus");
 
     function updateScore() {
         scoreSelector.text(score);
@@ -55,24 +131,28 @@ $(document).ready(function() {
             keyValue: "ArrowLeft",
             columnClass: ".columnLeft",
             accumulator: 0,
+            soundFile: "hit1",
         },
         up: {
             icon: "<i class='far fa-arrow-alt-circle-up'></i>",
             keyValue: "ArrowUp",
             columnClass: ".columnUp",
             accumulator: 0,
+            soundFile: "hit2",
         },
         down: {
             icon: "<i class='far fa-arrow-alt-circle-down'></i>",
             keyValue: "ArrowDown",
             columnClass: ".columnDown",
             accumulator: 0,
+            soundFile: "hit3",
         },
         right: {
             icon: "<i class='far fa-arrow-alt-circle-right'></i>",
             keyValue: "ArrowRight",
             columnClass: ".columnRight",
             accumulator: 0,
+            soundFile: "hit4",
         },
         pause: {
             icon: "<i class='fas fa-pause'></i>",
@@ -88,32 +168,11 @@ $(document).ready(function() {
     // Insert Arrow Reference Data
     // Keeps track of each arrow position, and the ID to reference which arrow
     const arrowData = {
-        left: [
-            {
-                identifier: 0,
-                top: 0,
-            },
-        ],
-        up: [
-            {
-                identifier: 0,
-                top: 0,
-            },
-        ],
-        down: [
-            {
-                identifier: 0,
-                top: 0,
-            },
-        ],
-        right: [
-            {
-                identifier: 0,
-                top: 0,
-            },
-        ],
+        left: [],
+        up: [],
+        down: [],
+        right: [],
     };
-
 
 
     // Append arrow element
@@ -136,49 +195,60 @@ $(document).ready(function() {
     };
 
 
-    // Start Button
-    $(".startButton").on("click", function() {
-        startApp();
-    });
-
-    // Space Button to Start Game for Accessibility
-    $("body").on("keydown", function(e) {
-        switch (e.key) {
-            case "spacebar":
-                startApp();
-                break;
-            case " ":
-                startApp();
-                break;
-        };
-    });
+    function startEventHandler() {
+        // Start Button
+        $(".startButton").on("click", function() {
+            startApp();
+        });
+        
+        // Space Button to Start Game for Accessibility
+        $("body").on("keydown", function(e) {
+            switch (e.key) {
+                case "spacebar":
+                    startApp();
+                    break;
+                case " ":
+                    startApp();
+                    break;
+                };
+        });
+    }
+                
+    const countScreenSelector = $(".countScreen");
 
     function startApp() {
         // Disable Spacebar to prevent looping of startApp();
-        $("body").off("keydown");
+        $("body").off();
+        $(".startScreen").hide();
+        countScreenSelector.show();
 
-        $(".startScreen").html("<p class='countdown'>Beginning Game</p>");
+        countScreenSelector.html("<p class='countdown'>Beginning Game</p>");
         setTimeout(() => {
-            $(".startScreen").html("<p class='countdown'>3</p>").delay(1000);
+            countScreenSelector.html("<p class='countdown'>3</p>").delay(1000);
+            playSound("tick");
         }, 1000);
         setTimeout(() => {
-            $(".startScreen").html("<p class='countdown'>2</p>").delay(1000);
+            countScreenSelector.html("<p class='countdown'>2</p>").delay(1000);
+            playSound("tick");
         }, 2000);
         setTimeout(() => {
-            $(".startScreen").html("<p class='countdown'>1</p>").delay(1000);
-        }, 3000);
+            countScreenSelector.html("<p class='countdown'>1</p>").delay(1000);
+            playSound("tick");
+        }, 3500);
         setTimeout(() => {
-            $(".startScreen").html("<p class='countdown'>Go!</p>").delay(1000);
-        }, 4000);
+            countScreenSelector.html("<p class='countdown'>Go!</p>").delay(1000);
+            playSound("begin");
+        }, 5000);
         setTimeout(() => {
-            $(".startScreen").hide();
-            arrowAppendInterval = setInterval(arrowAppender, appenderRng() * 100);
+            countScreenSelector.hide();
+            arrowAppendInterval = setInterval(arrowAppender, 800);
             gravityInterval = setInterval(gravity, 0.05);
             pauseArrow = false;
             pauseGravity = false;
             enableEvents();
+            pauseEventEnabler();
             pauseIcon("pause");
-        }, 5000);
+        }, 6500);
     }
 
 
@@ -206,6 +276,8 @@ $(document).ready(function() {
                     arrowData[key].shift();
                     score--;
                     updateScore();
+                    hp--;
+                    updateHp();
                 };
             };
         });
@@ -215,9 +287,9 @@ $(document).ready(function() {
     // setInterval(gravity, 0.05);
 
     // Make appender object
-    function appenderRng() {
-        return Math.floor(Math.random() * 10);
-    };
+    // function appenderRng() {
+    //     return Math.floor(Math.random() * 10);
+    // };
 
     function arrowAppender() {
         let arrowTypeRng = Math.floor(Math.random() * 4);
@@ -242,19 +314,36 @@ $(document).ready(function() {
     // setInterval(arrowAppender, appenderRng() * 100);
 
 
-    // Pause Functionality
+    // **SECTION** - Pause Functionality
     let pauseArrow = true;
     let pauseGravity = true;
 
+    // Pause Button Updater
+    const pauseSelect = $(".pause");
+
+    function pauseIcon(status) {
+        pauseSelect.css(`background-color`, `${arrowType[status].color}`);
+        pauseSelect.html(arrowType[status].icon);
+    };
+
+    // Pause Funciton
     function pauseInterval() {
         if (pauseArrow === true) {
-            arrowAppendInterval = setInterval(arrowAppender, appenderRng() * 100);
-            pauseArrow = false;
+            playSound("resume");
             pauseIcon("pause");
+            enableEvents();
+            arrowAppendInterval = setInterval(arrowAppender, 800);
+            countScreenSelector.hide();
+            pauseArrow = false;
         } else if (pauseArrow === false) {
-            clearInterval(arrowAppendInterval);
-            pauseArrow = true;
+            playSound("pause")
             pauseIcon("resume");
+            eventDisabler();
+            clearInterval(arrowAppendInterval);
+            pauseEventEnabler();
+            countScreenSelector.html("<p class='countdown'>PAUSED</p>");
+            countScreenSelector.show();
+            pauseArrow = true;
         }
 
         if (pauseGravity === true) {
@@ -266,21 +355,35 @@ $(document).ready(function() {
         }
     };
 
-    const pauseSelect = $(".pause");
 
-    function pauseIcon(status) {
-        pauseSelect.css(`background-color`, `${arrowType[status].color}`);
-        pauseSelect.html(arrowType[status].icon);
-    };
 
     
     //Event Handlers
     
+    function pauseEventEnabler() {
+        pauseSelect.on("touchstart mouseup", function(e) {
+            if (e.type == "touchstart") {
+                e.preventDefault();
+                pauseInterval();
+            } else if (e.type == "mouseup") {
+                pauseInterval();
+            };
+        });
+
+        $("body").keydown(function (e) {
+            switch (e.key) {
+                case " ":
+                    pauseInterval();
+                    break;
+                case "Spacebar":
+                    pauseInterval();
+                    break;
+            };
+        });
+    }
+
     // if() statement used to mitigate issue on mobile registering this event twice.
     function enableEvents() {
-        pauseSelect.on("touchstart mouseup", function() {
-            pauseInterval();
-        });
 
         $(".catchSection i").on("touchstart mouseup", function(e) {
             let catchDirection = e.target["attributes"]["data-direction"]["nodeValue"];
@@ -332,15 +435,24 @@ $(document).ready(function() {
                 case "ArrowRight":
                     rangeChecker("right");
                     break;
-                case " ":
-                    pauseInterval();
-                    break;
-                case "Spacebar":
-                    pauseInterval();
-                    break;
+                // case " ":
+                //     pauseInterval();
+                //     break;
+                // case "Spacebar":
+                //     pauseInterval();
+                //     break;
             };
         });
     };
+
+
+    function playSound(condition) {
+        let sound = $(`#${condition}`);
+        sound.get(0).currentTime = 0;
+        sound.get(0).play();
+    };
+    
+
     // To account for camelCase requirement, targetting classes
     function cap(string) {
         return (string.substr(0, 1).toUpperCase() + string.substr(1));
@@ -367,6 +479,7 @@ $(document).ready(function() {
             arrowPosition = arrowSelector.css("top").match(/[\.\d]/g).join("");
             
             if (arrowPosition > catchPosition) {
+                playSound(`${arrowType[arrowDirection].soundFile}`);
                 animator($(`.catch${cap(arrowDirection)}`), "pulse-green");
                 $(arrowSelector).remove();
                 arrowData[arrowDirection].shift();
@@ -374,8 +487,11 @@ $(document).ready(function() {
                 updateScore();
             } else {
                 animator($(`.catch${cap(arrowDirection)}`), "pulse-red");
+                playSound("miss");
                 score --;
                 updateScore();
+                hp --;
+                updateHp();
             }
         };
     };

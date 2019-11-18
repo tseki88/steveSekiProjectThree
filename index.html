@@ -11,8 +11,9 @@
 <body>
     <header>
         <h1>LUDR Maddness</h1>
-        <div class="relative">
-            <p class="score">Score: <span class="scoreboard">00</span></p>
+        <div class="relative status">
+            <p class="score">Score : <span class="scoreStatus">00</span></p>
+            <p class="hp">HP : <span class="hpStatus">20</span></p>
             <div class="pause"><i class='fas fa-pause'></i></div>
         </div>
     </header>
@@ -21,25 +22,26 @@
             <h2>Welcome to the Maddness</h2>
             <p>How to play:</p>
             <ul>
-                <li>Hit the key at the right timing.</li>
-                <li>Use the [left][up][down][right] on your keyboard or tap/click on the bottom arrow directly.</li>
+                <li>Hit the key at the right timing</li>
+                <li>Tap/Click on the bottom arrows <span class="mobileHide">or use the [left][up][down][right] on your keyboard</span></li>
+                <li>Aim for a Highscore</li>
+                <li>GAME OVER: Miss 20 Objects</li>
             </ul>
             <button type="button" class="startButton">Start Game</button>
             <p class="mobileHide">*[spacebar] can be used to start game</p>
         </div>
+        <div class="countScreen"></div>
+        <div class="endScreen">
+            <h2>GAME OVER</h2>
+            <p>Your Score: <span class="finalScore">--</span></p>
+            <button type="button" class="resetButton">Play Again?</button>
+            <p class="mobileHide">*[spacebar] can be used to play again</p>
+        </div>
         <div class="columnHolder">
-            <div class="column columnLeft">
-                <div class="arrow arrow0"><i class="far fa-arrow-alt-circle-left"></i></div>
-            </div>
-            <div class="column columnUp">
-                <div class="arrow arrow0"><i class="far fa-arrow-alt-circle-up"></i></div>
-            </div>
-            <div class="column columnDown">
-                <div class="arrow arrow0"><i class="far fa-arrow-alt-circle-down"></i></div>
-            </div>
-            <div class="column columnRight">
-                <div class="arrow arrow0"><i class="far fa-arrow-alt-circle-right"></i></div>
-            </div>
+            <div class="column columnLeft"></div>
+            <div class="column columnUp"></div>
+            <div class="column columnDown"></div>
+            <div class="column columnRight"></div>
         </div>
         <div class="catch">
             <div class="catchSection"><i class="fas fa-arrow-alt-circle-left catchLeft" data-direction="left"></i></div>
@@ -51,6 +53,18 @@
     <footer>
         <small>Left Up Down Right Maddness | By Steve Seki</small>
     </footer>
+
+    <audio id="hit1" src="./assets/sounds/hit1.wav"></audio>
+    <audio id="hit2" src="./assets/sounds/hit2.wav"></audio>
+    <audio id="hit3" src="./assets/sounds/hit3.wav"></audio>
+    <audio id="hit4" src="./assets/sounds/hit4.wav"></audio>
+    <audio id="miss" src="./assets/sounds/miss.wav"></audio>
+    <audio id="tick" src="./assets/sounds/tick.wav"></audio>
+    <audio id="begin" src="./assets/sounds/flagdrop.wav"></audio>
+    <audio id="gameover" src="./assets/sounds/gameover.wav"></audio>
+    <audio id="pause" src="./assets/sounds/pause.wav"></audio>
+    <audio id="resume" src="./assets/sounds/resume.wav"></audio>
+
     <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
     <script src="./script.js"></script>
 </body>

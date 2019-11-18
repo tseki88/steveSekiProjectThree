@@ -71,6 +71,7 @@ $(document).ready(function() {
         arrowData["right"] = [];
 
         // Reset Button
+        $(".resetButton").off();
         $(".resetButton").on("click", function () {
             resetApp();
         });
@@ -386,6 +387,8 @@ $(document).ready(function() {
 
     // if() statement used to mitigate issue on mobile registering this event twice.
     function enableEvents() {
+
+        $(".catchSection i").off();
 
         $(".catchSection i").on("touchstart mouseup", function(e) {
             let catchDirection = e.target["attributes"]["data-direction"]["nodeValue"];

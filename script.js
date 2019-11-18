@@ -478,7 +478,7 @@ $(document).ready(function() {
 
             arrowPosition = arrowSelector.css("top").match(/[\.\d]/g).join("");
             
-            if (arrowPosition > (catchPosition + 20)) {
+            if (arrowPosition > (catchPosition - 20)) {
                 playSound(`${arrowType[arrowDirection].soundFile}`);
                 animator($(`.catch${cap(arrowDirection)}`), "pulse-green");
                 $(arrowSelector).remove();

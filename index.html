@@ -10,7 +10,7 @@
 </head>
 <body>
     <header>
-        <h1>LUDR Maddness</h1>
+        <h1>LUDR Madness</h1>
         <div class="relative status">
             <p class="score">Score : <span class="scoreStatus">00</span></p>
             <p class="hp">HP : <span class="hpStatus">20</span></p>
@@ -19,16 +19,17 @@
     </header>
     <main class="container">
         <div class="startScreen">
-            <h2>Welcome to the Maddness</h2>
-            <p>How to play:</p>
+            <h2>How to Play</h2>
             <ul>
                 <li>Hit the key at the right timing</li>
                 <li>Tap/Click on the bottom arrows <span class="mobileHide">or use the [left][up][down][right] on your keyboard</span></li>
                 <li>Aim for a Highscore</li>
-                <li>GAME OVER: Miss 20 Objects</li>
+                <li>30 Life Points</li>
             </ul>
-            <button type="button" class="startButton">Start Game</button>
-            <p class="mobileHide">*[spacebar] can be used to start game</p>
+            <button type="button" class="startButton">Start</button>
+            <button type="button" class="startButtonHard">Hard</button>
+            <button type="button" class="startButtonEX">EX</button>
+            <p class="mobileHide">*[spacebar] can be used to start game (normal mode)</p>
         </div>
         <div class="countScreen"></div>
         <div class="endScreen">
@@ -51,11 +52,20 @@
         </div>
     </main>
     <footer>
-        <small>Left Up Down Right Maddness | By Steve Seki</small>
+        <small>LUDR Madness | By Steve Seki</small>
     </footer>
 
-    <audio id="bgm" src="./assets/bgm/intro.ogg"></audio>
-    <audio id="bgm2" src="./assets/bgm/DST-RailJet-LongSeamlessLoop.ogg"></audio>
+    <!-- Sound File Credits:
+    // - Michel Baradari
+    //      - tick.wav
+    //      - flagdrop.wav
+    //      - resume.wav
+    // - Space shooter sound fx pack 1 by Dravenx
+    //      - hit.wav
+    //      - miss.wav
+    //      - gameover.wav
+    //      - pause.wav -->
+
     <audio id="hit1" src="./assets/sounds/hit1.wav"></audio>
     <audio id="hit2" src="./assets/sounds/hit2.wav"></audio>
     <audio id="hit3" src="./assets/sounds/hit3.wav"></audio>

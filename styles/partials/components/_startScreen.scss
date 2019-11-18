@@ -6,10 +6,10 @@
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 20;
-    min-width: 350px;
+    min-width: 300px;
     padding: 20px 10px;
     color: black;
-    background-color: whitesmoke;
+    background-color: rgba($color: #ffffff, $alpha: 0.9);
     border: 5px solid black;
     border-radius: 25px;
     box-shadow: gray 0px 0px 20px 10px;
@@ -25,7 +25,7 @@
     .countdown {
         font-size: 3rem;
         font-weight: bold;
-        width: 300px;
+        width: 280px;
     }
 }
 

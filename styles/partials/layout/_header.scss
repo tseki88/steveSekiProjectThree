@@ -6,6 +6,15 @@ h1 {
     display: flex;
     justify-content: space-around;
     align-items: center;
+
+    @media (max-width: 500px) {
+        justify-content: flex-start;
+        
+        p {
+            font-size: 1.3rem;
+            margin-left: 15px;
+        }
+    }
 }
 
 .score,

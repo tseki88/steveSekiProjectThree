@@ -5,6 +5,17 @@ body {
     height: 100vh;
     overflow: hidden;
     perspective: 450px;
+
+    @media (max-width: 500px) {
+        height: 90vh;
+    }
+}
+
+
+.mobileHide {
+    @media (max-width: 500px) {
+        display: none;
+    }    
 }
 
 .relative {

@@ -8,11 +8,10 @@
 // x Workaround for mobile (touchstart and click register as 2 events at the moment, resulting in -2 points when clicked too early)
 // x button for pause
 // x Win / GameOver conditions..?
-// - make sure to init() / document ready
+// x make sure to init() / document ready
 // x Add sound for when eventlistener triggers ? hit : miss;
-// - Difficulty Levels(rate increase for speed, # of arrows appended)
+// x Difficulty Levels(rate increase for speed, # of arrows appended)
 // - Combo multiplier
-
 
 
 // Sound File Credits:
@@ -30,15 +29,16 @@
 $(document).ready(function() {
     
     const app = {};
-
+    
+    
     app.init = function() {
+        startEventHandler();
     };
     
-    startEventHandler();
-    // app.init();
+    app.init();
 
     // HP counter
-    let hp = 20;
+    let hp = 30;
     const hpSelector = $(".hpStatus");
 
     function updateHp() {
@@ -46,9 +46,9 @@ $(document).ready(function() {
 
         if (hp == 0) {
             gameOver();
-        } else if (hp < 6) {
-            hpSelector.css("color", "red");
         } else if (hp < 11) {
+            hpSelector.css("color", "red");
+        } else if (hp < 21) {
             hpSelector.css("color", "yellow");
         } else {
             hpSelector.css("color", "greenyellow");
@@ -62,6 +62,7 @@ $(document).ready(function() {
 
 
     function gameOver() {
+        $(".container").css("transform", "rotateX(5deg)")
         eventDisabler();
         pauseSelect.off();
         countScreenSelector.hide();
@@ -106,11 +107,14 @@ $(document).ready(function() {
         $(".column").html("");
         score = 0;
         updateScore();
-        hp = 20;
+        hp = 30;
         updateHp();
         $(".endScreen").hide();
         $(".startScreen").show();
         playSound("resume");
+        $(".startButton").off();
+        $(".startButtonHard").off();
+        $(".startButtonEX").off();
         startEventHandler();
     };
 
@@ -194,15 +198,30 @@ $(document).ready(function() {
         arrowType[arrowDirection].accumulator++;
     };
 
+    let appendForce = 0;
 
     function startEventHandler() {
         // Start Button
         $(".startButton").on("click", function() {
-            startApp();
+            appendForce = 800;
+            startApp(appendForce);
         });
+
+        $(".startButtonHard").on("click", function () {
+            appendForce = 400;
+            $(".container").css("transform", "rotateX(25deg)")
+            startApp(appendForce);
+        });
+
+        $(".startButtonEX").on("click", function() {
+            appendForce = 250;
+            $(".container").css("transform", "rotateX(50deg)")
+            startApp(appendForce);
+        })
         
         // Space Button to Start Game for Accessibility
         $("body").on("keydown", function(e) {
+            appendForce = 800;
             switch (e.key) {
                 case "spacebar":
                     startApp();
@@ -241,7 +260,7 @@ $(document).ready(function() {
         }, 4000);
         setTimeout(() => {
             countScreenSelector.hide();
-            arrowAppendInterval = setInterval(arrowAppender, 800);
+            arrowAppendInterval = setInterval(arrowAppender, appendForce);
             gravityInterval = setInterval(gravity, 0.05);
             pauseArrow = false;
             pauseGravity = false;
@@ -273,6 +292,7 @@ $(document).ready(function() {
 
                 if (thisPosition > containerHeight) {
                     $(`.column${cap(key)} .arrow:first-of-type`).remove();
+                    playSound("miss");
                     arrowData[key].shift();
                     score--;
                     updateScore();
@@ -284,12 +304,6 @@ $(document).ready(function() {
     };
 
     let gravityInterval = "";
-    // setInterval(gravity, 0.05);
-
-    // Make appender object
-    // function appenderRng() {
-    //     return Math.floor(Math.random() * 10);
-    // };
 
     function arrowAppender() {
         let arrowTypeRng = Math.floor(Math.random() * 4);
@@ -332,7 +346,7 @@ $(document).ready(function() {
             playSound("resume");
             pauseIcon("pause");
             enableEvents();
-            arrowAppendInterval = setInterval(arrowAppender, 800);
+            arrowAppendInterval = setInterval(arrowAppender, appendForce);
             countScreenSelector.hide();
             pauseArrow = false;
         } else if (pauseArrow === false) {
@@ -361,13 +375,15 @@ $(document).ready(function() {
     //Event Handlers
     
     function pauseEventEnabler() {
-        
-        pauseSelect.on("touchstart mouseup", function(e) {        
-            e.stopPropagation();
+
+        pauseSelect.off();
+
+        pauseSelect.on("touchstart mouseup", function(e) {
             if (e.type === "touchstart") {
                 e.preventDefault();
                 pauseInterval();
             } else if (e.type === "mouseup") {
+                e.preventDefault();
                 pauseInterval();
             };
         });
@@ -443,6 +459,12 @@ $(document).ready(function() {
     };
 
 
+    // function playBgm(condition) {
+    //     let sound = $(`#${condition}`);
+    //     sound.get(0).currentTime = 0;
+    //     sound.get(0).play();
+    // };    
+
     function playSound(condition) {
         let sound = $(`#${condition}`);
         sound.get(0).currentTime = 0;
@@ -480,14 +502,14 @@ $(document).ready(function() {
                 animator($(`.catch${cap(arrowDirection)}`), "pulse-green");
                 $(arrowSelector).remove();
                 arrowData[arrowDirection].shift();
-                score ++;
+                score++;
                 updateScore();
             } else {
                 animator($(`.catch${cap(arrowDirection)}`), "pulse-red");
                 playSound("miss");
-                score --;
+                score--;
                 updateScore();
-                hp --;
+                hp--;
                 updateHp();
             }
         };

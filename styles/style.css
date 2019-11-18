@@ -214,6 +214,13 @@ body {
   overflow: hidden;
   -webkit-perspective: 450px;
           perspective: 450px; }
+  @media (max-width: 500px) {
+    body {
+      height: 90vh; } }
+
+@media (max-width: 500px) {
+  .mobileHide {
+    display: none; } }
 
 .relative {
   position: relative; }
@@ -319,6 +326,14 @@ h1 {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center; }
+  @media (max-width: 500px) {
+    .status {
+      -webkit-box-pack: start;
+          -ms-flex-pack: start;
+              justify-content: flex-start; }
+      .status p {
+        font-size: 1.3rem;
+        margin-left: 15px; } }
 
 .score,
 .hp {
@@ -388,10 +403,10 @@ h1 {
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
   z-index: 20;
-  min-width: 350px;
+  min-width: 300px;
   padding: 20px 10px;
   color: black;
-  background-color: whitesmoke;
+  background-color: rgba(255, 255, 255, 0.9);
   border: 5px solid black;
   border-radius: 25px;
   -webkit-box-shadow: gray 0px 0px 20px 10px;
@@ -409,8 +424,23 @@ h1 {
   .endScreen .countdown {
     font-size: 3rem;
     font-weight: bold;
-    width: 300px; }
+    width: 280px; }
 
 .countScreen,
 .endScreen {
   display: none; }
+
+button {
+  background-color: greenyellow;
+  font-size: 1.8rem;
+  padding: 2px 15px;
+  margin: 10px auto;
+  border: 2px solid black;
+  border-radius: 10px;
+  text-transform: uppercase; }
+
+.startButtonHard {
+  background-color: orange; }
+
+.startButtonEX {
+  background-color: red; }

@@ -7,9 +7,16 @@ h1 {
     justify-content: space-around;
     align-items: center;
 
-    @media (max-width: 500px) {
+    @media (max-width: 650px) {
         justify-content: flex-start;
         
+        p {
+            font-size: 1.8rem;
+            margin-left: 50px;
+        }
+    }
+    
+    @media (max-width: 500px) {
         p {
             font-size: 1.3rem;
             margin-left: 15px;

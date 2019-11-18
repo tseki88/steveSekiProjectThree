@@ -326,14 +326,18 @@ h1 {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center; }
-  @media (max-width: 500px) {
+  @media (max-width: 650px) {
     .status {
       -webkit-box-pack: start;
           -ms-flex-pack: start;
               justify-content: flex-start; }
       .status p {
-        font-size: 1.3rem;
-        margin-left: 15px; } }
+        font-size: 1.8rem;
+        margin-left: 50px; } }
+  @media (max-width: 500px) {
+    .status p {
+      font-size: 1.3rem;
+      margin-left: 15px; } }
 
 .score,
 .hp {

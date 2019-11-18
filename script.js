@@ -361,11 +361,13 @@ $(document).ready(function() {
     //Event Handlers
     
     function pauseEventEnabler() {
-        pauseSelect.on("touchstart mouseup", function(e) {
-            if (e.type == "touchstart") {
+        
+        pauseSelect.on("touchstart mouseup", function(e) {        
+            e.stopPropagation();
+            if (e.type === "touchstart") {
                 e.preventDefault();
                 pauseInterval();
-            } else if (e.type == "mouseup") {
+            } else if (e.type === "mouseup") {
                 pauseInterval();
             };
         });
@@ -387,7 +389,7 @@ $(document).ready(function() {
 
         $(".catchSection i").on("touchstart mouseup", function(e) {
             let catchDirection = e.target["attributes"]["data-direction"]["nodeValue"];
-            if (e.type == "touchstart") {
+            if (e.type === "touchstart") {
                 e.preventDefault();
                 switch (catchDirection) {
                     case "left":
@@ -403,7 +405,8 @@ $(document).ready(function() {
                         rangeChecker("right");
                         break;
                 };
-            } else if (e.type == "mouseup") {
+            } else if (e.type === "mouseup") {
+                e.preventDefault();
                 switch (catchDirection) {
                     case "left":
                         rangeChecker("left");
@@ -435,12 +438,6 @@ $(document).ready(function() {
                 case "ArrowRight":
                     rangeChecker("right");
                     break;
-                // case " ":
-                //     pauseInterval();
-                //     break;
-                // case "Spacebar":
-                //     pauseInterval();
-                //     break;
             };
         });
     };

@@ -191,25 +191,25 @@ $(document).ready(function() {
     function startEventHandler() {
         // Start Button
         $(".startButton").on("click", function() {
-            appendForce = 800;
+            appendForce = 500;
             startApp(appendForce);
         });
 
         $(".startButtonHard").on("click", function () {
-            appendForce = 400;
-            $(".container").css("transform", "rotateX(25deg)")
+            appendForce = 350;
+            $(".container").css("transform", "rotateX(25deg) scaleY(1.4)");
             startApp(appendForce);
         });
 
         $(".startButtonEX").on("click", function() {
-            appendForce = 250;
-            $(".container").css("transform", "rotateX(50deg)")
+            appendForce = 200;
+            $(".container").css("transform", "rotateX(50deg) scaleY(1.9)");
             startApp(appendForce);
         })
         
         // Space Button to Start Game for Accessibility
         $("body").on("keydown", function(e) {
-            appendForce = 800;
+            appendForce = 500;
             switch (e.key) {
                 case "spacebar":
                     startApp();
@@ -478,7 +478,7 @@ $(document).ready(function() {
 
             arrowPosition = arrowSelector.css("top").match(/[\.\d]/g).join("");
             
-            if (arrowPosition > catchPosition) {
+            if (arrowPosition > (catchPosition + 20)) {
                 playSound(`${arrowType[arrowDirection].soundFile}`);
                 animator($(`.catch${cap(arrowDirection)}`), "pulse-green");
                 $(arrowSelector).remove();

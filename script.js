@@ -13,19 +13,6 @@
 // x Difficulty Levels(rate increase for speed, # of arrows appended)
 // - Combo multiplier
 
-
-// Sound File Credits:
-//  - Michel Baradari
-//      - tick.wav
-//      - flagdrop.wav
-//      - resume.wav
-//  - Space shooter sound fx pack 1 by Dravenx
-//      - hit.wav
-//      - miss.wav
-//      - gameover.wav
-//      - pause.wav
-
-
 $(document).ready(function() {
     
     const app = {};
@@ -325,7 +312,6 @@ $(document).ready(function() {
     };
 
     let arrowAppendInterval = "";
-    // setInterval(arrowAppender, appenderRng() * 100);
 
 
     // **SECTION** - Pause Functionality
@@ -368,10 +354,8 @@ $(document).ready(function() {
             pauseGravity = true;
         }
     };
-
-
-
     
+
     //Event Handlers
     
     function pauseEventEnabler() {
@@ -458,12 +442,6 @@ $(document).ready(function() {
         });
     };
 
-
-    // function playBgm(condition) {
-    //     let sound = $(`#${condition}`);
-    //     sound.get(0).currentTime = 0;
-    //     sound.get(0).play();
-    // };    
 
     function playSound(condition) {
         let sound = $(`#${condition}`);

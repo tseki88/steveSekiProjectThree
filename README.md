@@ -1,36 +1,24 @@
 # Project 3 Proposal
 
-## Description
-Object of Up Down Left Right linked to arrow key on keyboard (add clickable buttons for accessibility for each);
-Append arrow at Top.
-The arrows will fall down from top to bottom, each belonging to their own column.
-falling Arrows will be position absolute, with top bottom starting at a fixed point.
-the Y axis as is scrolls will add the same value to Y top and bottom to recreate the falling motion.
-setInterval()
-On the bottom, there will be an arrowObject to 'catch' the falling arrows.
-If the user presses the appropriate position absolute arrow on keyboard when the Y position of the falling arrow matches (or close to with some variance) a score will be generated and added to the score board.
-
-Once the arrow falls off the page, it will be removed to prevent further processing.
-
-the score will be based on the values assigned to TOP or BOTTOM
-
-If missed, the score will go down (to a min of 0).
-
-
 ## MVP
 - 1 arrow object moving from top to bottom. 
 - When the arrow falls into the acceptable range within a "hit" box, press the associated arrow key on keyboard (or click / tap on hitrange container) to evaluate. 
 - Score counter to increase when hit made.
 
-
-## Stretch Goal: 
-- Score counter decrease on miss
-- More than 1 arrow at a time.
-- Increase to 4 columns (each with their own arrow - up down left right)
-- Space button to "pause" the game
-- Combo multiplier
-- Difficulty Levels (rate increase for speed, # of arrows appended)
-
+## Stretch Goal:
+[x] Score counter decrease on miss
+[x] More than 1 arrow at a time.
+[x] Increase to 4 columns(each with their own arrow - up down left right)
+[x] animation to show that an event handler took place
+[x] Space button to "pause" the game
+[x] Start Menu - start with interval not set.
+[x] Workaround for mobile (touchstart and click register as 2 events at the moment, resulting in -2 points when clicked too early)
+[x] button for pause
+[x] Win / GameOver conditions..?
+[x] make sure to init() / document ready
+[x] Add sound for when eventlistener triggers ? hit : miss;
+[x] Difficulty Levels(rate increase for speed, # of arrows appended)
+[ ] Combo multiplier
 
 ## Pseudocode
 
@@ -39,7 +27,6 @@ If missed, the score will go down (to a min of 0).
 - Arrow
 - "hit" range container
 - score counter
-
 
 1. Find and select the parent container
     - then append Arrow (div with class .arrow) at top of page.
@@ -64,3 +51,16 @@ If missed, the score will go down (to a min of 0).
 6. If arrow falls off page, remove arrow.
 
 7. repeat append Arrow "X" times (tbd);
+
+
+## Sound File Credits:
+
+### Michel Baradari - https://opengameart.org/content/9-sci-fi-computer-sounds-and-beeps
+- tick.wav
+- flagdrop.wav
+- resume.wav
+### Space shooter sound fx pack 1 by Dravenx - https://opengameart.org/content/space-shooter-sound-effects
+- hit.wav
+- miss.wav
+- gameover.wav
+- pause.wav

@@ -1,18 +1,13 @@
 @import
-  'abstracts/variables',
-  'abstracts/functions',
-  'abstracts/mixins',
   'abstracts/setup';
 
 @import
-  'base/reset',
   'base/typography',
   'base/base',
   'base/animations';
 
 @import
-  'layout/header',
-  'layout/footer';
+  'layout/header';
 
 @import
   'components/arrowObject',

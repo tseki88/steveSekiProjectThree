@@ -1,6 +1,7 @@
 .startScreen,
 .countScreen,
-.endScreen {
+.endScreen,
+.leaderBoardScreen {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -29,6 +30,17 @@
     }
 }
 
+.leaderBoardFlex {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+
+    .leaderBoardColumn {
+        flex: 0 0 33%;
+    }
+}
+
+.leaderBoardScreen,
 .countScreen,
 .endScreen {
     display: none;

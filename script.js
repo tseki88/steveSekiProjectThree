@@ -13,8 +13,28 @@
 // x Difficulty Levels(rate increase for speed, # of arrows appended)
 // - Combo multiplier
 
+
+    
+    
+
+    // Your web app's Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyACYzCfe400d6NXHk031R15QQiMfyIA7ss",
+    authDomain: "ludr-high-score.firebaseapp.com",
+    databaseURL: "https://ludr-high-score.firebaseio.com",
+    projectId: "ludr-high-score",
+    storageBucket: "ludr-high-score.appspot.com",
+    messagingSenderId: "353061442545",
+    appId: "1:353061442545:web:d1a3b0a720122de201aa50"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+
+
 $(document).ready(function() {
     
+    const dbRef = firebase.database().ref();
+
     const app = {};
     
     
@@ -47,12 +67,27 @@ $(document).ready(function() {
         $(".catchSection i").off();
     }
 
+    function submitHiScore() {
+        $("input[type=submit]").on("click submit", function(e) {
+            e.preventDefault();
+            let formName = $("#name").val();
+            dbRef.push({
+                "player": formName,
+                "score": score,
+                "mode": gameMode,
+            });
+            $(".submitForm").hide();
+            $("input[type=submit]").off();
+        });
+    };
 
     function gameOver() {
+        $(".submitForm").show();
         $(".container").css("transform", "rotateX(5deg)")
         eventDisabler();
         pauseSelect.off();
         countScreenSelector.hide();
+        submitHiScore();
         $(".finalScore").text(score);
         $(".endScreen").show();
         playSound("gameover");
@@ -77,17 +112,78 @@ $(document).ready(function() {
         });
     
         // Space Button to Start Game for Accessibility
-        $("body").on("keydown", function (e) {
-            switch (e.key) {
-                case "spacebar":
-                    resetApp();
-                    break;
-                case " ":
-                    resetApp();
-                    break;
-            };
-        });
+        // $("body").on("keydown", function (e) {
+        //     switch (e.key) {
+        //         case "spacebar":
+        //             resetApp();
+        //             break;
+        //         case " ":
+        //             resetApp();
+        //             break;
+        //     };
+        // });
     }
+
+    const normalLeaderBoard = [];
+    const hardLeaderBoard = [];
+    const exLeaderBoard = [];
+
+
+    function displayLeaderBoard() {
+        $(".startScreen").hide();
+        dbRef.on('value', (data) => {
+            $.each(data.val(), function(key, value) {
+                switch (value.mode) {
+                    case "Normal":
+                        normalLeaderBoard.push(value);
+                        break;
+                    case "Hard":
+                        hardLeaderBoard.push(value);
+                        break;
+                    case "EX":
+                        exLeaderBoard.push(value);
+                        break;
+                };
+            });
+        });
+
+
+        sortArray(normalLeaderBoard);
+        sortArray(hardLeaderBoard);
+        sortArray(exLeaderBoard);
+        
+        renderLeaderBoard("boardNormal", normalLeaderBoard);
+        renderLeaderBoard("boardHard", hardLeaderBoard);
+        renderLeaderBoard("boardEX", exLeaderBoard);
+                // We call `.val()` on our data to get the contents of our data to print out in the form of an object
+                // console.log(data.val());
+            // check each mode value using if/switch, and append to 1 of 3 arrays per difficulty.
+            // sort each array by score highest to lowest
+            // run a loop for 10 iterations appending top 10 name & score under each difficulty column
+            // maybe create a character limit for name length to prevent breaking
+        
+        $(".leaderBoardScreen").show();
+    }
+
+    function sortArray(array) {
+        array.sort(function (a, b) {
+            console.log(a[score]);
+            return b[score] > a[score]
+        });
+    };
+
+    function renderLeaderBoard(target, array) {
+        for (let i = 0; i < 10; i++){
+            // $(target).append(`
+            //     <li>${array[i].name}: ${array[i].score}</li>`);
+        };
+        // console.log(array)
+    };
+
+    $(".leaderBoardButton").on("click", function() {
+        displayLeaderBoard();
+    });
+
 
 
     // Reset App
@@ -97,6 +193,7 @@ $(document).ready(function() {
         updateScore();
         hp = 30;
         updateHp();
+        countScreenSelector.hide();
         $(".endScreen").hide();
         $(".startScreen").show();
         playSound("resume");
@@ -188,21 +285,26 @@ $(document).ready(function() {
 
     let appendForce = 0;
 
+    let gameMode = "";
+
     function startEventHandler() {
         // Start Button
         $(".startButton").on("click", function() {
             appendForce = 500;
+            gameMode = "Normal";
             startApp(appendForce);
         });
 
         $(".startButtonHard").on("click", function () {
             appendForce = 350;
+            gameMode = "Hard",
             $(".container").css("transform", "rotateX(25deg) scaleY(1.4)");
             startApp(appendForce);
         });
 
         $(".startButtonEX").on("click", function() {
             appendForce = 200;
+            gameMode = "EX";
             $(".container").css("transform", "rotateX(50deg) scaleY(1.9)");
             startApp(appendForce);
         })
@@ -210,6 +312,7 @@ $(document).ready(function() {
         // Space Button to Start Game for Accessibility
         $("body").on("keydown", function(e) {
             appendForce = 500;
+            gameMode = "Normal";
             switch (e.key) {
                 case "spacebar":
                     startApp();
@@ -227,6 +330,7 @@ $(document).ready(function() {
         // Disable Spacebar to prevent looping of startApp();
         $("body").off();
         $(".startScreen").hide();
+        $(".difficulty").text(gameMode);
         countScreenSelector.show();
 
         countScreenSelector.html("<p class='countdown'>Initializing...</p>");
@@ -342,7 +446,13 @@ $(document).ready(function() {
             eventDisabler();
             clearInterval(arrowAppendInterval);
             pauseEventEnabler();
-            countScreenSelector.html("<p class='countdown'>PAUSED</p>");
+            countScreenSelector.html(`
+                <p class='countdown'>PAUSED</p>
+                <button type="button" class="resetButton">Restart</button>`);
+            $(".resetButton").off();
+            $(".resetButton").on("click", function () {
+                gameOver();
+            });
             countScreenSelector.show();
             pauseArrow = true;
         }

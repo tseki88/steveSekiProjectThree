@@ -400,7 +400,8 @@ h1 {
 
 .startScreen,
 .countScreen,
-.endScreen {
+.endScreen,
+.leaderBoardScreen {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -417,19 +418,37 @@ h1 {
           box-shadow: gray 0px 0px 20px 10px; }
   .startScreen p,
   .countScreen p,
-  .endScreen p {
+  .endScreen p,
+  .leaderBoardScreen p {
     margin: 0; }
   .startScreen ul,
   .countScreen ul,
-  .endScreen ul {
+  .endScreen ul,
+  .leaderBoardScreen ul {
     text-align: left; }
   .startScreen .countdown,
   .countScreen .countdown,
-  .endScreen .countdown {
+  .endScreen .countdown,
+  .leaderBoardScreen .countdown {
     font-size: 3rem;
     font-weight: bold;
     width: 280px; }
 
+.leaderBoardFlex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between; }
+  .leaderBoardFlex .leaderBoardColumn {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 33%;
+            flex: 0 0 33%; }
+
+.leaderBoardScreen,
 .countScreen,
 .endScreen {
   display: none; }
@@ -442,6 +461,13 @@ button {
   border: 2px solid black;
   border-radius: 10px;
   text-transform: uppercase; }
+  button:focus {
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+    background-color: black;
+    color: white;
+    -webkit-box-shadow: 0 0 10px 5px red;
+            box-shadow: 0 0 10px 5px red; }
 
 .startButtonHard {
   background-color: orange; }

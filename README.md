@@ -9,19 +9,20 @@ known issues:
 - Score counter to increase when hit made.
 
 ## Stretch Goal:
-[x] Score counter decrease on miss
-[x] More than 1 arrow at a time.
-[x] Increase to 4 columns(each with their own arrow - up down left right)
-[x] animation to show that an event handler took place
-[x] Space button to "pause" the game
-[x] Start Menu - start with interval not set.
-[x] Workaround for mobile (touchstart and click register as 2 events at the moment, resulting in -2 points when clicked too early)
-[x] button for pause
-[x] Win / GameOver conditions..?
-[x] make sure to init() / document ready
-[x] Add sound for when eventlistener triggers ? hit : miss;
-[x] Difficulty Levels(rate increase for speed, # of arrows appended)
-[ ] Combo multiplier
+- [x] Score counter decrease on miss
+- [x] More than 1 arrow at a time.
+- [x] Increase to 4 columns(each with their own arrow - up down left right)
+- [x] animation to show that an event handler took place
+- [x] Space button to "pause" the game
+- [x] Start Menu - start with interval not set.
+- [x] Workaround for mobile (touchstart and click register as 2 events at the moment, resulting in -2 points when clicked too early)
+- [x] button for pause
+- [x] Win / GameOver conditions..?
+- [x] make sure to init() / document ready
+- [x] Add sound for when eventlistener triggers ? hit : miss;
+- [x] Difficulty Levels(rate increase for speed, # of arrows appended)
+- [ ] Leaderboard function utilizing firebase (in the works)
+- [ ] Combo multiplier
 
 ## Pseudocode
 

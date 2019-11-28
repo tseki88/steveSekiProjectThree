@@ -1,24 +1,21 @@
-// Stretch Goals
-// x Score counter decrease on miss
-// x More than 1 arrow at a time.
-// x Increase to 4 columns(each with their own arrow - up down left right)
-// x animation to show that an event handler took place
-// x Space button to "pause" the game
-// x Start Menu - start with interval not set.
-// x Workaround for mobile (touchstart and click register as 2 events at the moment, resulting in -2 points when clicked too early)
-// x button for pause
-// x Win / GameOver conditions..?
-// x make sure to init() / document ready
-// x Add sound for when eventlistener triggers ? hit : miss;
-// x Difficulty Levels(rate increase for speed, # of arrows appended)
-// - Combo multiplier
 
+// Your web app's Firebase configuration
 
-    
-    
-
-    // Your web app's Firebase configuration
-
+// ** NOTICE **
+// I am aware that it is not a good practice to place the apiKey within public view.
+// The Firebase Key is stored here for this project's purposes, as proof of concept on utilizing the firebase database integrated into this project.
+// This course did not cover the ways to 'hide' this data from the public, and is not sensitive data.
+const firebaseConfig = {
+    apiKey: "AIzaSyACYzCfe400d6NXHk031R15QQiMfyIA7ss",
+    authDomain: "ludr-high-score.firebaseapp.com",
+    databaseURL: "https://ludr-high-score.firebaseio.com",
+    projectId: "ludr-high-score",
+    storageBucket: "ludr-high-score.appspot.com",
+    messagingSenderId: "353061442545",
+    appId: "1:353061442545:web:d1a3b0a720122de201aa50"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
 
 
 $(document).ready(function() {

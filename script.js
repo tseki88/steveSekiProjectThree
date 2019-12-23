@@ -27,6 +27,26 @@ $(document).ready(function() {
     
     app.init = function() {
         startEventHandler();
+
+        dbRef.on('value', (data) => {
+            normalLeaderBoard = [];
+            hardLeaderBoard = [];
+            exLeaderBoard = [];
+
+            $.each(data.val(), function(key, value) {
+                switch (value.mode) {
+                    case "Normal":
+                        normalLeaderBoard.push(value);
+                        break;
+                    case "Hard":
+                        hardLeaderBoard.push(value);
+                        break;
+                    case "EX":
+                        exLeaderBoard.push(value);
+                        break;
+                };
+            });
+        });
     };
     
     app.init();
@@ -70,7 +90,6 @@ $(document).ready(function() {
 
     function gameOver() {
         $(".submitForm").show();
-        $(".container").css("transform", "rotateX(5deg)")
         eventDisabler();
         pauseSelect.off();
         countScreenSelector.hide();
@@ -97,74 +116,54 @@ $(document).ready(function() {
         $(".resetButton").on("click", function () {
             resetApp();
         });
-    
-        // Space Button to Start Game for Accessibility
-        // $("body").on("keydown", function (e) {
-        //     switch (e.key) {
-        //         case "spacebar":
-        //             resetApp();
-        //             break;
-        //         case " ":
-        //             resetApp();
-        //             break;
-        //     };
-        // });
     }
 
-    const normalLeaderBoard = [];
-    const hardLeaderBoard = [];
-    const exLeaderBoard = [];
+    let normalLeaderBoard = [];
+    let hardLeaderBoard = [];
+    let exLeaderBoard = [];
 
 
     function displayLeaderBoard() {
         $(".startScreen").hide();
-        dbRef.on('value', (data) => {
-            $.each(data.val(), function(key, value) {
-                switch (value.mode) {
-                    case "Normal":
-                        normalLeaderBoard.push(value);
-                        break;
-                    case "Hard":
-                        hardLeaderBoard.push(value);
-                        break;
-                    case "EX":
-                        exLeaderBoard.push(value);
-                        break;
-                };
-            });
-        });
-
+        
+        $(".back").on("click", function() {
+            $(".leaderBoardScreen").hide();
+            $(".startScreen").show();
+        })
 
         sortArray(normalLeaderBoard);
         sortArray(hardLeaderBoard);
         sortArray(exLeaderBoard);
-        
-        renderLeaderBoard("boardNormal", normalLeaderBoard);
-        renderLeaderBoard("boardHard", hardLeaderBoard);
-        renderLeaderBoard("boardEX", exLeaderBoard);
-                // We call `.val()` on our data to get the contents of our data to print out in the form of an object
-                // console.log(data.val());
-            // check each mode value using if/switch, and append to 1 of 3 arrays per difficulty.
-            // sort each array by score highest to lowest
-            // run a loop for 10 iterations appending top 10 name & score under each difficulty column
-            // maybe create a character limit for name length to prevent breaking
+
+        $(".boardNormal").empty();
+        $(".boardHard").empty();
+        $(".boardEX").empty();
+
+        renderLeaderBoard(".boardNormal", normalLeaderBoard);
+        renderLeaderBoard(".boardHard", hardLeaderBoard);
+        renderLeaderBoard(".boardEX", exLeaderBoard);
         
         $(".leaderBoardScreen").show();
     }
 
     function sortArray(array) {
-        array.sort(function (a, b) {
-            console.log(a[score]);
-            return b[score] > a[score]
+        array.sort(function(a, b) {
+            return b.score - a.score;
         });
     };
 
     function renderLeaderBoard(target, array) {
-        for (let i = 0; i < 10; i++){
-            // $(target).append(`
-            //     <li>${array[i].name}: ${array[i].score}</li>`);
-        };
-        // console.log(array)
+        if (array.length < 5) {
+            for (let i = 0; i < array.length; i++){
+                $(`${target}`).append(`
+                    <li>${array[i].player.toUpperCase()}  :  ${array[i].score}</li>`);
+            };    
+        } else {
+            for (let i = 0; i < 5; i++){
+                $(`${target}`).append(`
+                    <li>${array[i].player.toUpperCase()}  :  ${array[i].score}</li>`);
+            };
+        }
     };
 
     $(".leaderBoardButton").on("click", function() {
@@ -279,6 +278,7 @@ $(document).ready(function() {
         $(".startButton").on("click", function() {
             appendForce = 500;
             gameMode = "Normal";
+            $(".container").css("transform", "rotateX(5deg) scaleY(1)");
             startApp(appendForce);
         });
 
@@ -343,6 +343,7 @@ $(document).ready(function() {
             gravityInterval = setInterval(gravity, 0.05);
             pauseArrow = false;
             pauseGravity = false;
+            // updateContainerHeight();
             enableEvents();
             pauseEventEnabler();
             pauseIcon("pause");
@@ -353,7 +354,14 @@ $(document).ready(function() {
     // function which shifts the Arrow down:
 
     // Will be declared assuming the browser height will not be changed after the page loads.
-    const containerHeight = parseInt($(".container").css("height").match(/[\.\d]/g).join(""));
+    let containerHeight = parseInt($(".container").css("height").match(/[\.\d]/g).join(""));
+
+    // Function for containerHeight update, will be run when game starts & resumes from pause state.
+
+    // function updateContainerHeight() {
+    //     containerHeight = parseInt($(".container").css("height").match(/[\.\d]/g).join(""));
+    // }
+
 
     function gravity() {
         let thisPosition = 0;
@@ -426,6 +434,7 @@ $(document).ready(function() {
             enableEvents();
             arrowAppendInterval = setInterval(arrowAppender, appendForce);
             countScreenSelector.hide();
+            // updateContainerHeight();
             pauseArrow = false;
         } else if (pauseArrow === false) {
             playSound("pause")
@@ -435,7 +444,9 @@ $(document).ready(function() {
             pauseEventEnabler();
             countScreenSelector.html(`
                 <p class='countdown'>PAUSED</p>
+                <p>Difficulty: <span class="difficulty"></span></p>
                 <button type="button" class="resetButton">Restart</button>`);
+            $(".difficulty").text(gameMode);
             $(".resetButton").off();
             $(".resetButton").on("click", function () {
                 gameOver();

@@ -13,20 +13,19 @@
         <h1>LUDR Madness</h1>
         <div class="relative status">
             <p class="score">Score : <span class="scoreStatus">00</span></p>
-            <p>Difficulty: <span class="difficulty"></span></p>
             <p class="hp">HP : <span class="hpStatus">30</span></p>
             <div class="pause"><i class='fas fa-pause'></i></div>
         </div>
     </header>
     <main class="container">
-        <div class="startScreen">
+        <!-- <div class="startScreen">
             <h2>How to Play</h2>
             <ul>
                 <li>Hit the key at the right timing</li>
                 <li>Tap/Click on the bottom arrows <span class="mobileHide">or use the [left][up][down][right] on your keyboard</span></li>
                 <li>Aim for a Highscore</li>
                 <li>30 Life Points</li>
-                <!-- <button type="button" class="leaderBoardButton">Leader Board</button> -->
+                <button type="button" class="leaderBoardButton">Leader Board</button>
             </ul>
             <button type="button" class="startButton">Normal</button>
             <button type="button" class="startButtonHard">Hard</button>
@@ -61,8 +60,8 @@
                 <input type="submit" value="Submit Hi-Score">
             </form>
             <button type="button" class="resetButton">Play Again?</button>
-            <!-- <p class="mobileHide">*[spacebar] can be used to play again</p> -->
-        </div>
+            <p class="mobileHide">*[spacebar] can be used to play again</p>
+        </div> -->
         <div class="columnHolder">
             <div class="column columnLeft"></div>
             <div class="column columnUp"></div>
@@ -76,6 +75,54 @@
             <div class="catchSection"><i class="fas fa-arrow-alt-circle-right catchRight" data-direction="right"></i></div>
         </div>
     </main>
+    <section class="overlay">
+        <div class="startScreen">
+            <h2>How to Play</h2>
+            <ul>
+                <li>Hit the key at the right timing</li>
+                <li>Tap/Click on the bottom arrows <span class="mobileHide">or use the [left][up][down][right] on your keyboard</span></li>
+                <li>Aim for a Highscore</li>
+                <li>30 Life Points</li>
+                <button type="button" class="leaderBoardButton">Leader Board</button>
+            </ul>
+            <button type="button" class="startButton">Normal</button>
+            <button type="button" class="startButtonHard">Hard</button>
+            <button type="button" class="startButtonEX">EX</button>
+            <p class="mobileHide">*[spacebar] can be used to start game (normal mode)</p>
+        </div>
+        <div class="countScreen"></div>
+        <div class="leaderBoardScreen">
+            <button type="button" class="back">back</button>
+            <h2>Leader Board</h3>
+            <div class="leaderBoardFlex">
+                <div class="leaderBoardColumn">
+                    <h3>Normal</h3>
+                    <ol class="boardNormal"></ol>
+                </div>
+                <div class="leaderBoardColumn">
+                    <h3>Hard</h3>
+                    <ol class="boardHard"></ol>
+                </div>
+                <div class="leaderBoardColumn">
+                    <h3>EX</h3>
+                    <ol class="boardEX"></ol>
+                </div>
+            </div>
+        </div>
+        <div class="endScreen">
+            <h2>GAME OVER</h2>
+            <form class="submitForm">
+                <label for="name"></label>
+                <input type="text" name="name" id="name" placeholder="name (3 character limit)" maxlength="3" required>
+                <p>Your Score: <span class="finalScore">--</span></p>
+                <p>Difficulty: <span class="difficulty"></span></p>
+                <input type="submit" value="Submit Hi-Score">
+            </form>
+            <button type="button" class="resetButton">Play Again?</button>
+            <!-- <p class="mobileHide">*[spacebar] can be used to play again</p> -->
+        </div>
+    </section>
+
     <footer>
         <small>LUDR Madness | By Steve Seki</small>
     </footer>

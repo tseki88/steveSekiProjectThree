@@ -1,4 +1,3 @@
-
 // Your web app's Firebase configuration
 
 // ** NOTICE **
@@ -17,22 +16,17 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-
 $(document).ready(function() {
     
     const dbRef = firebase.database().ref();
-
     const app = {};
-    
     
     app.init = function() {
         startEventHandler();
-
         dbRef.on('value', (data) => {
             normalLeaderBoard = [];
             hardLeaderBoard = [];
             exLeaderBoard = [];
-
             $.each(data.val(), function(key, value) {
                 switch (value.mode) {
                     case "Normal":
@@ -122,7 +116,6 @@ $(document).ready(function() {
     let hardLeaderBoard = [];
     let exLeaderBoard = [];
 
-
     function displayLeaderBoard() {
         $(".startScreen").hide();
         
@@ -170,8 +163,6 @@ $(document).ready(function() {
         displayLeaderBoard();
     });
 
-
-
     // Reset App
     function resetApp() {
         $(".column").html("");
@@ -196,7 +187,6 @@ $(document).ready(function() {
     function updateScore() {
         scoreSelector.text(score);
     };
-
 
     // Arrow Type HTML Reference Object
     // Accumulator used to add reference for each new arrow
@@ -239,7 +229,6 @@ $(document).ready(function() {
         },
     };
 
-
     // Insert Arrow Reference Data
     // Keeps track of each arrow position, and the ID to reference which arrow
     const arrowData = {
@@ -248,7 +237,6 @@ $(document).ready(function() {
         down: [],
         right: [],
     };
-
 
     // Append arrow element
     let arrowElement = "";
@@ -270,11 +258,11 @@ $(document).ready(function() {
     };
 
     let appendForce = 0;
-
     let gameMode = "";
 
     function startEventHandler() {
         // Start Button
+
         $(".startButton").on("click", function() {
             appendForce = 500;
             gameMode = "Normal";
@@ -295,22 +283,17 @@ $(document).ready(function() {
             $(".container").css("transform", "rotateX(50deg) scaleY(1.9)");
             startApp(appendForce);
         })
-        
+
         // Space Button to Start Game for Accessibility
         $("body").on("keydown", function(e) {
             appendForce = 500;
             gameMode = "Normal";
-            switch (e.key) {
-                case "spacebar":
-                    startApp();
-                    break;
-                case " ":
-                    startApp();
-                    break;
-                };
+            if (e.key === "spacebar" || e.key === " ") {
+                startApp();
+            }
         });
     }
-                
+    
     const countScreenSelector = $(".countScreen");
 
     function startApp() {
@@ -343,25 +326,16 @@ $(document).ready(function() {
             gravityInterval = setInterval(gravity, 0.05);
             pauseArrow = false;
             pauseGravity = false;
-            // updateContainerHeight();
             enableEvents();
             pauseEventEnabler();
             pauseIcon("pause");
         }, 5000);
     }
 
-
     // function which shifts the Arrow down:
 
     // Will be declared assuming the browser height will not be changed after the page loads.
     let containerHeight = parseInt($(".container").css("height").match(/[\.\d]/g).join(""));
-
-    // Function for containerHeight update, will be run when game starts & resumes from pause state.
-
-    // function updateContainerHeight() {
-    //     containerHeight = parseInt($(".container").css("height").match(/[\.\d]/g).join(""));
-    // }
-
 
     function gravity() {
         let thisPosition = 0;
@@ -413,7 +387,6 @@ $(document).ready(function() {
 
     let arrowAppendInterval = "";
 
-
     // **SECTION** - Pause Functionality
     let pauseArrow = true;
     let pauseGravity = true;
@@ -434,8 +407,7 @@ $(document).ready(function() {
             enableEvents();
             arrowAppendInterval = setInterval(arrowAppender, appendForce);
             countScreenSelector.hide();
-            // updateContainerHeight();
-            pauseArrow = false;
+            pauseArrow = !pauseArrow;
         } else if (pauseArrow === false) {
             playSound("pause")
             pauseIcon("resume");
@@ -452,15 +424,15 @@ $(document).ready(function() {
                 gameOver();
             });
             countScreenSelector.show();
-            pauseArrow = true;
+            pauseArrow = !pauseArrow;
         }
 
         if (pauseGravity === true) {
             gravityInterval = setInterval(gravity, 0.05);
-            pauseGravity = false;
+            pauseGravity = !pauseGravity;
         } else if (pauseGravity === false) {
             clearInterval(gravityInterval);
-            pauseGravity = true;
+            pauseGravity = !pauseGravity;
         }
     };
     
@@ -472,24 +444,16 @@ $(document).ready(function() {
         pauseSelect.off();
 
         pauseSelect.on("touchstart mouseup", function(e) {
-            if (e.type === "touchstart") {
+            if (e.type === "touchstart" || e.type === "mouseup") {
                 e.preventDefault();
                 pauseInterval();
-            } else if (e.type === "mouseup") {
-                e.preventDefault();
-                pauseInterval();
-            };
+            }
         });
 
         $("body").keydown(function (e) {
-            switch (e.key) {
-                case " ":
-                    pauseInterval();
-                    break;
-                case "Spacebar":
-                    pauseInterval();
-                    break;
-            };
+            if (e.key === " " || e.key === "Spacebar") {
+                pauseInterval();
+            }
         });
     }
 
@@ -500,38 +464,9 @@ $(document).ready(function() {
 
         $(".catchSection i").on("touchstart mouseup", function(e) {
             let catchDirection = e.target["attributes"]["data-direction"]["nodeValue"];
-            if (e.type === "touchstart") {
+            if (e.type === "touchstart" || e.type === "mouseup") {
                 e.preventDefault();
-                switch (catchDirection) {
-                    case "left":
-                        rangeChecker("left");
-                        break;
-                    case "up":
-                        rangeChecker("up");
-                        break;
-                    case "down":
-                        rangeChecker("down");
-                        break;
-                    case "right":
-                        rangeChecker("right");
-                        break;
-                };
-            } else if (e.type === "mouseup") {
-                e.preventDefault();
-                switch (catchDirection) {
-                    case "left":
-                        rangeChecker("left");
-                        break;
-                    case "up":
-                        rangeChecker("up");
-                        break;
-                    case "down":
-                        rangeChecker("down");
-                        break;
-                    case "right":
-                        rangeChecker("right");
-                        break;
-                };
+                rangeChecker(catchDirection);
             };
         });
 
@@ -553,14 +488,12 @@ $(document).ready(function() {
         });
     };
 
-
     function playSound(condition) {
         let sound = $(`#${condition}`);
         sound.get(0).currentTime = 0;
         sound.get(0).play();
     };
     
-
     // To account for camelCase requirement, targetting classes
     function cap(string) {
         return (string.substr(0, 1).toUpperCase() + string.substr(1));

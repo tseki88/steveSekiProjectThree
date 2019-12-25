@@ -42,7 +42,7 @@
 
         ol {
             padding: 0;
-            text-align: center;
+            text-align: left;
             list-style: none;
         }
     }
@@ -52,4 +52,14 @@
 .countScreen,
 .endScreen {
     display: none;
+}
+
+.leaderBoardScreen {
+    h2 {
+        margin: 0 auto;
+    }
+
+    h3 {
+        font-size: 18px;
+    }
 }

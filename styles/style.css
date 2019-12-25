@@ -451,13 +451,19 @@ h1 {
     margin: 0 10px; }
     .leaderBoardFlex .leaderBoardColumn ol {
       padding: 0;
-      text-align: center;
+      text-align: left;
       list-style: none; }
 
 .leaderBoardScreen,
 .countScreen,
 .endScreen {
   display: none; }
+
+.leaderBoardScreen h2 {
+  margin: 0 auto; }
+
+.leaderBoardScreen h3 {
+  font-size: 18px; }
 
 button {
   background-color: greenyellow;
@@ -480,3 +486,7 @@ button {
 
 .startButtonEX {
   background-color: red; }
+
+.leaderBoardButton {
+  font-size: 1.4rem;
+  padding: 5px 5px; }

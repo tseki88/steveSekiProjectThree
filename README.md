@@ -1,14 +1,22 @@
-# Project 3 Proposal
+# Juno Project 3 - LUDR Madness
+
+![Project Screenshot](./assets/screen_ludr.png)
+
+## Live Link
+http://tseki88.github.io/steveSekiProjectThree
+
 
 known issues:
 - firefox: setInterval time latency, sound effect may not trigger
 
-## MVP
+
+## Project Proposal
+### MVP
 - 1 arrow object moving from top to bottom. 
 - When the arrow falls into the acceptable range within a "hit" box, press the associated arrow key on keyboard (or click / tap on hitrange container) to evaluate. 
 - Score counter to increase when hit made.
 
-## Stretch Goal:
+### Stretch Goal:
 - [x] Score counter decrease on miss
 - [x] More than 1 arrow at a time.
 - [x] Increase to 4 columns(each with their own arrow - up down left right)
@@ -21,12 +29,12 @@ known issues:
 - [x] make sure to init() / document ready
 - [x] Add sound for when eventlistener triggers ? hit : miss;
 - [x] Difficulty Levels(rate increase for speed, # of arrows appended)
-- [ ] Leaderboard function utilizing firebase (in the works)
+- [x] Leaderboard function utilizing firebase (in the works)
 - [ ] Combo multiplier
 
-## Pseudocode
+### Pseudocode
 
-### Objects involved: 
+#### Objects involved: 
 - Parent Container
 - Arrow
 - "hit" range container
@@ -57,13 +65,13 @@ known issues:
 7. repeat append Arrow "X" times (tbd);
 
 
-## Sound File Credits:
+### Sound File Credits:
 
-### Michel Baradari - https://opengameart.org/content/9-sci-fi-computer-sounds-and-beeps
+#### Michel Baradari - https://opengameart.org/content/9-sci-fi-computer-sounds-and-beeps
 - tick.wav
 - flagdrop.wav
 - resume.wav
-### Space shooter sound fx pack 1 by Dravenx - https://opengameart.org/content/space-shooter-sound-effects
+#### Space shooter sound fx pack 1 by Dravenx - https://opengameart.org/content/space-shooter-sound-effects
 - hit.wav
 - miss.wav
 - gameover.wav

@@ -1,4 +1,5 @@
-# Juno Project 3 - LUDR Madness
+# LUDR Madness
+## Juno College Project 3 - solo jQuery
 
 ![Project Screenshot](./assets/screen_ludr.png)
 

@@ -116,6 +116,7 @@ $(document).ready(function() {
     let hardLeaderBoard = [];
     let exLeaderBoard = [];
 
+    // Future Note: To sort and push top 5 for each difficulty level directly to the DB, cleans up unused data entries and more better performance.
     function displayLeaderBoard() {
         $(".startScreen").hide();
         
@@ -417,6 +418,7 @@ $(document).ready(function() {
             countScreenSelector.html(`
                 <p class='countdown'>PAUSED</p>
                 <p>Difficulty: <span class="difficulty"></span></p>
+                <p>*to resume press the top right button <span class="mobileHide"> or the space button</span></p>
                 <button type="button" class="resetButton">Restart</button>`);
             $(".difficulty").text(gameMode);
             $(".resetButton").off();

@@ -24,6 +24,12 @@ button {
 }
 
 .leaderBoardButton {
+    color: black;
+    font-weight: 600;
     font-size: 1.4rem;
     padding: 5px 5px;
+
+    @media (max-width: 500px) {
+        min-width: 80%;
+    }
 }

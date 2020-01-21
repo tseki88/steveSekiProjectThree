@@ -207,6 +207,9 @@ body {
   font-weight: bold;
   color: greenyellow; }
 
+a {
+  color: inherit; }
+
 body {
   background-image: url(../assets/background.jpg);
   margin: 0;
@@ -488,5 +491,10 @@ button {
   background-color: red; }
 
 .leaderBoardButton {
+  color: black;
+  font-weight: 600;
   font-size: 1.4rem;
   padding: 5px 5px; }
+  @media (max-width: 500px) {
+    .leaderBoardButton {
+      min-width: 80%; } }

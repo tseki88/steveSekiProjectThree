@@ -30,8 +30,9 @@ known issues:
 - [x] make sure to init() / document ready
 - [x] Add sound for when eventlistener triggers ? hit : miss;
 - [x] Difficulty Levels(rate increase for speed, # of arrows appended)
-- [x] Leaderboard function utilizing firebase (in the works)
+- [x] Leaderboard function utilizing firebase
 - [ ] Combo multiplier
+- [ ] Zen Mode (Endless)
 
 ### Pseudocode
 

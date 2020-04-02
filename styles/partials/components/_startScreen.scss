@@ -8,12 +8,20 @@
     transform: translate(-50%, -50%);
     z-index: 20;
     min-width: 300px;
-    padding: 20px 10px;
+    width: 50%;
+    padding: 15px 10px;
     color: black;
     background-color: rgba($color: #ffffff, $alpha: 0.9);
     border: 5px solid black;
     border-radius: 25px;
     box-shadow: gray 0px 0px 20px 10px;
+
+    @media (max-width: 600px) {
+        width: 100%;
+        top: auto;
+        bottom: 0;
+        transform: translate(-50%, 0);
+    }
 
     p {
         margin: 0;
@@ -24,9 +32,16 @@
     }
 
     .countdown {
-        font-size: 3rem;
+        font-size: 2.8rem;
         font-weight: bold;
-        width: 280px;
+    }
+}
+
+.countScreen {
+    @media (max-width: 600px) {
+        top: 50%;
+        bottom: auto;
+        transform: translate(-50%, -50%);
     }
 }
 
@@ -34,16 +49,26 @@
     display: flex;
     flex-wrap: nowrap;
     justify-content: center;
-    margin: 0 50px;
+    margin: 2rem auto;
+    width: 100%;
 
     .leaderBoardColumn {
         flex: 0 0 33%;
-        margin: 0 10px;
-
+        
         ol {
+            margin: 0 auto;
             padding: 0;
-            text-align: left;
+            font-size: 1.2rem;
+            text-align: center;
             list-style: none;
+            
+            @media (max-width: 600px) {
+                font-size: 0.9rem;
+            }
+        }
+
+        li {
+            margin: 0.5rem auto;
         }
     }
 }
@@ -57,9 +82,11 @@
 .leaderBoardScreen {
     h2 {
         margin: 0 auto;
+        font-size: 1.2rem;
     }
 
     h3 {
-        font-size: 18px;
+        font-size: 1rem;
+        
     }
 }

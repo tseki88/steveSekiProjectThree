@@ -11,6 +11,9 @@ body {
     }
 }
 
+input[type=text] {
+    width: 100%;
+}
 
 .mobileHide {
     @media (max-width: 500px) {

@@ -431,9 +431,9 @@ h1 {
     .countScreen,
     .endScreen,
     .leaderBoardScreen {
-      width: 100%;
+      width: 96%;
       top: auto;
-      bottom: 0;
+      bottom: 5%;
       -webkit-transform: translate(-50%, 0);
               transform: translate(-50%, 0); } }
   .startScreen p,
@@ -493,8 +493,7 @@ h1 {
   display: none; }
 
 .leaderBoardScreen h2 {
-  margin: 0 auto;
-  font-size: 1.2rem; }
+  margin: 0 auto; }
 
 .leaderBoardScreen h3 {
   font-size: 1rem; }
